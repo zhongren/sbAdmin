@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.common.orm.BaseMapper">
+    <sql id="conditions">
+        <where>
+            <if test="conditionList!=null">
+                <foreach collection="conditionList" item="condition" index="index" separator=" AND ">
+                    <if test="@com.example.demo.common.orm.MybatisHelper@isList(condition.value)">
+                        ${condition.column} IN
+                        <foreach collection="condition.value" item="conditionItem" index="index" open="(" separator=","
+                                 close=")">
+                            #{conditionItem}
+                        </foreach>
+                    </if>
+                    <if test="!@com.example.demo.common.orm.MybatisHelper@isList(condition.value)">
+                        <choose>
+                            <when test="condition.op==@com.example.demo.common.orm.Op@LIKE">
+                                ${condition.column} LIKE CONCAT('%',#{condition.value},'%' )
+                            </when>
+                            <when test="condition.op==@com.example.demo.common.orm.Op@LT">
+                                ${condition.column} &lt; #{condition.value}
+                            </when>
+                            <when test="condition.op==@com.example.demo.common.orm.Op@LE">
+                                ${condition.column} &lt;= #{condition.value}
+                            </when>
+                            <when test="condition.op==@com.example.demo.common.orm.Op@GT">
+                                ${condition.column} &gt; #{condition.value}
+                            </when>
+                            <when test="condition.op==@com.example.demo.common.orm.Op@GE">
+                                ${condition.column} &gt;= #{condition.value}
+                            </when>
+                            <otherwise>
+                                ${condition.column} ${condition.op} #{condition.value}
+                            </otherwise>
+                        </choose>
+                    </if>
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <select id="find" parameterType="com.example.demo.common.orm.SearchCriteria" resultType="java.util.Map">
+        SELECT
+        <if test="columnList==null">
+            *
+        </if>
+        <if test="columnList!=null">
+            <foreach collection="columnList" item="column" index="index" separator=",">
+                ${column}
+            </foreach>
+        </if>
+        FROM
+        ${tableName}
+        <include refid="conditions"/>
+    </select>
+
+    <insert id="create" parameterType="com.example.demo.common.orm.CreateCriteria" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO ${tableName}
+        <foreach collection="conditionList" item="item" separator="," open="(" close=")">
+            <if test="item.value != null">
+                ${item.column}
+            </if>
+        </foreach>
+        <foreach collection="conditionList" item="item" separator="," open=" VALUES(" close=")">
+            <if test="item.value != null">
+                #{item.value,jdbcType=VARCHAR}
+            </if>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.example.demo.common.orm.UpdateCriteria">
+        UPDATE
+        ${tableName}
+        <set>
+            <foreach collection="updateValueList" item="item" separator=",">
+                <if test="item.value != null">
+                    ${item.column} = #{item.value,jdbcType=VARCHAR}
+                </if>
+            </foreach>
+        </set>
+        <include refid="conditions"/>
+    </update>
+
+
+    <delete id="delete" parameterType="com.example.demo.common.orm.DeleteCriteria">
+        DELETE FROM ${tableName}
+        <include refid="conditions"/>
+    </delete>
+</mapper>

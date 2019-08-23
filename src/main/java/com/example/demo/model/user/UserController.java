@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "user")
 public class UserController {
     @Autowired
-    BaseRepo baseRepo;
+    private BaseRepo baseRepo;
 
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
