@@ -2,6 +2,8 @@ package com.example.demo.common;
 
 
 import com.github.pagehelper.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -11,8 +13,10 @@ import java.util.Map;
  * @author zhongren
  * @date 2017/11/8
  */
+@Service
 public abstract class BaseService {
     private final String PK="id";
+    @Autowired
     private BaseRepo baseRepo;
 
     public BaseRepo getBaseRepo() {
