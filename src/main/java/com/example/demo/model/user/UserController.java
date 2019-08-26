@@ -1,7 +1,6 @@
 package com.example.demo.model.user;
 
-import com.example.demo.common.BaseRepo;
-import com.example.demo.common.BaseService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,12 +14,12 @@ import java.util.List;
 @RequestMapping(value = "user")
 public class UserController {
     @Autowired
-    private BaseService baseService;
+    private UserService userService;
 
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<User> test() {
 
-        return baseService.findList(User.class);
+        return userService.findList(User.class);
     }
 }

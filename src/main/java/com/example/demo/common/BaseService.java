@@ -13,10 +13,10 @@ import java.util.Map;
  * @author zhongren
  * @date 2017/11/8
  */
-@Service
+
 public abstract class BaseService {
     private final String PK="id";
-    @Autowired
+
     private BaseRepo baseRepo;
 
     public BaseRepo getBaseRepo() {

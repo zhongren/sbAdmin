@@ -3,13 +3,14 @@ package com.example.demo.common.orm;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
-public class SearchCriteria {
+public class UpdateCriteria {
     private String tableName;
-    private List<String> columnList;
+    private List<String> fieldList;
     private List<Condition> conditionList;
 
-    public SearchCriteria(String tableName) {
+    public UpdateCriteria(String tableName) {
         this.tableName = tableName;
     }
 }

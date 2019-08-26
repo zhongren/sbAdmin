@@ -12,14 +12,13 @@ import com.example.demo.common.util.CommonUtil;
 import com.google.common.base.CaseFormat;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.Table;
 import java.util.*;
 
-@Repository
+
 public class BaseRepo {
     private static String FIND = "com.example.demo.common.orm.BaseMapper.find";
     private static String CREATE = "com.example.demo.common.orm.BaseMapper.create";
@@ -52,7 +51,7 @@ public class BaseRepo {
         SearchCriteria searchCriteria = new SearchCriteria(tableName);
         if (null != fields && fields.length > 0) {
             List<String> fieldList = Arrays.asList(fields);
-            searchCriteria.setFieldList(fieldList);
+            searchCriteria.setColumnList(fieldList);
         }
         if (CollectionUtil.isNotEmpty(param) && CollectionUtil.isNotEmpty(conditionMap)) {
             List<Condition> conditionList = new ArrayList<>();
@@ -76,7 +75,7 @@ public class BaseRepo {
         //添加查询字段
         if (null != fields && fields.length > 0) {
             List<String> fieldList = Arrays.asList(fields);
-            searchCriteria.setFieldList(fieldList);
+            searchCriteria.setColumnList(fieldList);
         }
         //添加查询条件
         if (!StringUtils.isEmpty(value)) {
