@@ -6,8 +6,8 @@ import java.util.List;
 
 @Data
 public class DeleteCriteria {
+    private Object id;
     private String tableName;
-    private List<String> fieldList;
     private List<Condition> conditionList;
 
     public DeleteCriteria(String tableName) {
