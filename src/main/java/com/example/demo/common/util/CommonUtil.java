@@ -13,8 +13,4 @@ public class CommonUtil {
         return str;
     }
 
-    public static void main(String[] args) {
-        String s1="a_b_c";
-        System.out.println(Underscore2Camel(s1));
-    }
 }

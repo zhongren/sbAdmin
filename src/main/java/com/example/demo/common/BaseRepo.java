@@ -151,10 +151,5 @@ public class BaseRepo {
         }
         return data;
     }
-    public static void main(String[] args) {
-        String name = "TestStringName";
-        name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
-        System.out.println(name);
 
-    }
 }
