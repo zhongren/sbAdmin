@@ -1,6 +1,10 @@
 package com.example.demo.common;
 
 
+import com.example.demo.common.dto.PageInfoDto;
+import com.example.demo.common.dto.ParamDto;
+import com.example.demo.common.util.BeanUtil;
+import com.example.demo.common.util.PageUtil;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +34,18 @@ public abstract class BaseService {
     @PostConstruct
     public abstract void init();
 
-
+    public<T> PageInfoDto<T> page(ParamDto paramBean, Class<T> clazz) {
+        Page page = PageUtil.startPage(paramBean);
+        List<Map<String, Object>> data = baseRepo.findMapList(paramBean);
+        List<T> list= BeanUtil.convertMap2List( data, clazz);
+        PageInfoDto<T> pageInfoBean = new PageInfoDto<>();
+        pageInfoBean.setData(list);
+        pageInfoBean.setPageNum(page.getPageNum());
+        pageInfoBean.setPageSize(page.getPageSize());
+        pageInfoBean.setTotal(page.getTotal());
+        pageInfoBean.setPages(page.getPages());
+        return pageInfoBean;
+    }
 
     public <T> List<T> findList(Map<String,Object> map, Class<T> tClass, String... columns) {
         return baseRepo.findList(map, tClass, columns);

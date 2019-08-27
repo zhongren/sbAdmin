@@ -1,26 +1,25 @@
 package com.example.demo.model.user;
 
 
-import com.example.demo.common.util.PropertyUtil;
+import com.example.demo.common.BaseController;
+import com.example.demo.common.dto.PageInfoDto;
+import com.example.demo.common.dto.ParamDto;
+import com.example.demo.common.dto.ResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "user")
-public class UserController {
+public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public List<User> test() {
-        System.out.println(new PropertyUtil().getProperty("a",2));
-        return userService.findList(User.class);
+    @GetMapping(value = "test", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultDto test() {
+        ParamDto paramDto=getParam();
+        return ResultDto.success(userService.page(paramDto,User.class));
     }
 }

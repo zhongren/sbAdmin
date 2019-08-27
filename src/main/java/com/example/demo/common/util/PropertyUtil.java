@@ -9,18 +9,18 @@ import java.util.Properties;
  */
 public class PropertyUtil  {
 
-    private Environment environment=ApplicationContextUtil.getApplicationContext().getEnvironment();
+    private static Environment environment=ApplicationContextUtil.getApplicationContext().getEnvironment();
 
 
-    public  String getProperty(String key, String def) {
+    public  static String getProperty(String key, String def) {
         return environment.getProperty(key,def);
     }
 
-    public  boolean getProperty(String key, boolean def) {
+    public static boolean getProperty(String key, boolean def) {
         return Boolean.parseBoolean(environment.getProperty(key,String.valueOf(def)));
     }
 
-    public  int getProperty(String key, int def) {
+    public static int getProperty(String key, int def) {
         return Integer.parseInt(environment.getProperty(key,String.valueOf(def)));
     }
 

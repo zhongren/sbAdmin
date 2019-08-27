@@ -13,4 +13,8 @@ public class Condition {
         this.value = value;
         this.op = op;
     }
+    public Condition(String column, String op) {
+        this.column = column;
+        this.op = op;
+    }
 }
