@@ -21,8 +21,8 @@ import java.util.*;
 public class BaseController {
 
 /*
-    @ExceptionHandler(value = BaseException.class)
-    public ResponseEntity<ResultDto> baseExceptionHandler(BaseException exception) {
+    @ExceptionHandler(value = BusinessException.class)
+    public ResponseEntity<ResultDto> baseExceptionHandler(BusinessException exception) {
         logger.error(exception.getCode() + ":" + exception.getMessage(), exception);
         return null;
     }

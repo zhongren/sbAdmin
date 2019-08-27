@@ -17,4 +17,8 @@ public class Condition {
         this.column = column;
         this.op = op;
     }
+    public Condition(String column, Object value) {
+        this.column = column;
+        this.value = value;
+    }
 }
