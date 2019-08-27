@@ -12,7 +12,7 @@ public class StartApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StartApplication.class, args);
-        log.info("启动完成");
+        log.info("------启动完成------");
 
     }
 

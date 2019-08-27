@@ -114,8 +114,8 @@ public class BaseController {
             paramBean.setOrderField(getParam(ParamDto.ORDER_FIELD).toString());
         }
 
-        //Map<String,String> orderMap=paramBean.getOrderMap();
-        //  orderMap.put("create_time","desc");
+        Map<String,String> orderMap=paramBean.getOrderMap();
+        orderMap.put(paramBean.getOrderField(),paramBean.getOrderType());
         paramBean.putAll(getParamMap(ParamDto.PAGE_NUM, ParamDto.PAGE_SIZE, ParamDto.ORDER_TYPE, ParamDto.ORDER_FIELD));
         filterParam(paramBean);
         return paramBean;
