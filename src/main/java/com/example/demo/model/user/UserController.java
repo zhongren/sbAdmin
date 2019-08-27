@@ -1,6 +1,7 @@
 package com.example.demo.model.user;
 
 
+import com.example.demo.common.util.PropertyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ public class UserController {
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<User> test() {
-
+        System.out.println(new PropertyUtil().getProperty("a",2));
         return userService.findList(User.class);
     }
 }
