@@ -188,24 +188,23 @@ public class BaseRepo {
         List<Map<String, Object>> list = findMapList(param, columns);
         return BeanUtil.convertMap2List(list, tClass);
     }
-    private Object createMap(Map<String, Object> param) {
+    private int createMap(Map<String, Object> param) {
         CreateCriteria createCriteria = createCreateCriteria(param);
-        sqlSessionTemplate.insert(CREATE, createCriteria);
-        return createCriteria.getId();
+        return sqlSessionTemplate.insert(CREATE, createCriteria);
     }
 
-    private Object updateMap(Map<String, Object> param, Condition condition) {
+    private int updateMap(Map<String, Object> param, Condition condition) {
         UpdateCriteria updateCriteria = createUpdateCriteria(param, condition);
         return sqlSessionTemplate.update(UPDATE, updateCriteria);
     }
 
-    public <T> Object create(T bean) {
+    public <T> int create(T bean) {
         Map<String, Object> map = BeanUtil.convertBean2Map(bean);
         return createMap(map);
     }
 
 
-    public <T> Object update(String field, Object value, T bean) {
+    public <T> int update(String field, Object value, T bean) {
         Map<String, Object> map = BeanUtil.convertBean2Map(bean);
         Condition condition = new Condition(field, value, Op.EQ);
         return updateMap(map, condition);
