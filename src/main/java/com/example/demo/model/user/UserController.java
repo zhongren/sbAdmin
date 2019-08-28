@@ -1,7 +1,7 @@
 package com.example.demo.model.user;
 
 
-import com.example.demo.common.BaseController;
+import com.example.demo.common.base.BaseController;
 import com.example.demo.common.dto.ParamDto;
 import com.example.demo.common.dto.ResultDto;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,6 +12,7 @@ public class ShiroConfig {
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+        chainDefinition.addPathDefinition("/auth/login", "anon");
 
         // logged in users with the 'admin' role
        // chainDefinition.addPathDefinition("/admin/**", "authc, roles[admin]");
@@ -20,18 +21,17 @@ public class ShiroConfig {
        // chainDefinition.addPathDefinition("/docs/**", "authc, perms[document:read]");
 
         // all other paths require a logged in user
-      //  chainDefinition.addPathDefinition("/**", "authc");
-        chainDefinition.addPathDefinition("/**", "anon");
+        chainDefinition.addPathDefinition("/**", "authc");
+        //chainDefinition.addPathDefinition("/**", "anon");
         return chainDefinition;
     }
 
     @Bean
     public Realm realm() {
-
         MyCredentialsMatcher myCredentialsMatcher=new MyCredentialsMatcher();
         MyRealm myRealm =new MyRealm();
         myRealm.setCredentialsMatcher(myCredentialsMatcher);
-        myRealm.setCachingEnabled(true);
+      //  myRealm.setCachingEnabled(true);
         return myRealm;
     }
 

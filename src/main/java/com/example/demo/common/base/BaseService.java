@@ -1,4 +1,4 @@
-package com.example.demo.common;
+package com.example.demo.common.base;
 
 
 import com.example.demo.common.dto.PageInfoDto;
@@ -6,8 +6,6 @@ import com.example.demo.common.dto.ParamDto;
 import com.example.demo.common.util.BeanUtil;
 import com.example.demo.common.util.PageUtil;
 import com.github.pagehelper.Page;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

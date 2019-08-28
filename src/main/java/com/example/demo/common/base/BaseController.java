@@ -1,11 +1,9 @@
-package com.example.demo.common;
+package com.example.demo.common.base;
 
 
 import com.example.demo.common.dto.ParamDto;
 import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

@@ -1,4 +1,4 @@
-package com.example.demo.common;
+package com.example.demo.common.base;
 
 import cn.hutool.core.annotation.AnnotationUtil;
 
@@ -24,7 +24,7 @@ public class BaseRepo {
     private static String UPDATE = "com.example.demo.common.orm.BaseMapper.update";
     private static String DELETE = "com.example.demo.common.orm.BaseMapper.delete";
     @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
+    protected SqlSessionTemplate sqlSessionTemplate;
 
     private ConditionMap conditionMap;
 
@@ -78,6 +78,7 @@ public class BaseRepo {
         }
         //添加查询条件
         if (!StringUtils.isEmpty(value)) {
+            field= StrUtil.toUnderlineCase(field);
             List<Condition> conditionList = new ArrayList<>();
             Condition condition = new Condition(field, value, Op.EQ);
             conditionList.add(condition);

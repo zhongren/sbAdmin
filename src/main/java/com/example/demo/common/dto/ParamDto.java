@@ -2,8 +2,10 @@ package com.example.demo.common.dto;
 
 
 
+import cn.hutool.core.util.StrUtil;
 import org.springframework.util.StringUtils;
 
+import java.sql.Struct;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -77,8 +79,9 @@ public class ParamDto extends HashMap<String, Object> {
             if( StringUtils.isEmpty( item.getKey() ) || item.getValue() == null ){
                 continue ;
             }
+            String key= StrUtil.toUnderlineCase(item.getKey());
             stringOrderType.append( String.format(
-                    " %s %s ,", item.getKey()  , item.getValue()) ) ;
+                    " %s %s ,", key , item.getValue()) ) ;
         }
 
         String tempstr = stringOrderType.toString().trim() ;
