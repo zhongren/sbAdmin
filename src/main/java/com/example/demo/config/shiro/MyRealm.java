@@ -80,10 +80,10 @@ public class MyRealm extends AuthorizingRealm {
         Set<String> userPerms = new HashSet<>();
         if (permPoList != null && !permPoList.isEmpty()) {
             for (PermPo permPo : permPoList) {
-                String permUrl = permPo.getUrl();
+                String perm = permPo.getPerm();
                 //String menuUrl = permPo.getMenuUrl();
                 // String perm = menuUrl + ":" + permUrl;
-                userPerms.add(permUrl);
+                userPerms.add(perm);
             }
         }
         return userPerms;

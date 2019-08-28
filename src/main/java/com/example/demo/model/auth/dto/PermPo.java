@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class PermPo extends BaseDto {
     private Integer id;
-    private String url;
+    private String perm;
     private String name;
 
 }
