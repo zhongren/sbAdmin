@@ -46,10 +46,11 @@ public class AuthController extends BaseController {
         UsernamePasswordToken token = new UsernamePasswordToken(account, password);
         try {
             subject.login(token);
+            String host=subject.getSession().getHost();
             UserDto user = (UserDto) subject.getPrincipal();
             user.setSid(subject.getSession().getId());
             //remember(true);
-            System.out.println("用户权限:"+user.getPerm());
+            System.out.println(host+"用户权限:"+user.getPerm());
             return ResultDto.success( "登陆成功",user);
         } catch (UnknownAccountException e) {
             throw new AuthException(AuthEnum.UNKNOWN_ACCOUNT);

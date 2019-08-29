@@ -1,9 +1,23 @@
 package com.example.demo.config.shiro;
 
+
+import net.sf.ehcache.Ehcache;
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.SessionListener;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +35,7 @@ public class ShiroConfig {
        // chainDefinition.addPathDefinition("/docs/**", "authc, perms[document:read]");
 
         // all other paths require a logged in user
+        chainDefinition.addPathDefinition("/user/page", "authc, perms[user:page]");
         chainDefinition.addPathDefinition("/**", "authc");
         //chainDefinition.addPathDefinition("/**", "anon");
         return chainDefinition;
@@ -31,9 +46,14 @@ public class ShiroConfig {
         MyCredentialsMatcher myCredentialsMatcher=new MyCredentialsMatcher();
         MyRealm myRealm =new MyRealm();
         myRealm.setCredentialsMatcher(myCredentialsMatcher);
-      //  myRealm.setCachingEnabled(true);
         return myRealm;
     }
 
 
+    @Bean()
+    public CacheManager ehCacheManager(){
+        EhCacheManager ehCacheManager=new EhCacheManager();
+        ehCacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
+        return ehCacheManager;
+    }
 }
