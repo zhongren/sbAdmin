@@ -1,4 +1,4 @@
-package com.example.demo.model.user;
+package com.example.demo.model.user.repo;
 
 import com.example.demo.common.base.BaseRepo;
 import com.example.demo.common.orm.Condition;

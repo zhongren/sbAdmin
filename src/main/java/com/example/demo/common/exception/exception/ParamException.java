@@ -1,4 +1,4 @@
-package com.example.demo.common.exception;
+package com.example.demo.common.exception.exception;
 
 
 import com.example.demo.common.exception.enums.ParamEnum;
@@ -7,7 +7,7 @@ import com.example.demo.common.exception.enums.ParamEnum;
  * @author zhongren
  * @date 2017/11/7
  */
-public class ParamException extends BusinessException {
+public class ParamException extends BaseException {
 
 
     public ParamException(ParamEnum paramEnum) {

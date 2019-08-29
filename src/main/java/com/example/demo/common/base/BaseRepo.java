@@ -4,7 +4,7 @@ import cn.hutool.core.annotation.AnnotationUtil;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.example.demo.common.exception.ParamException;
+import com.example.demo.common.exception.exception.ParamException;
 import com.example.demo.common.exception.enums.ParamEnum;
 import com.example.demo.common.orm.*;
 import com.example.demo.common.util.BeanUtil;

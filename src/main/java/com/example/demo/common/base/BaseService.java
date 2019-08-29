@@ -67,7 +67,7 @@ public abstract class BaseService {
 
     }
 
-    public <T> T findById(Long value, Class<T> tClass, String... columns) {
+    public <T> T findById(Integer value, Class<T> tClass, String... columns) {
         return baseRepo.find(PK, value, tClass, columns);
 
     }

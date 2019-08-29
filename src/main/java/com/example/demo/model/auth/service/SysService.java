@@ -4,7 +4,7 @@ package com.example.demo.model.auth.service;
 import com.example.demo.model.auth.dto.UserDto;
 import com.example.demo.model.auth.dto.PermPo;
 import com.example.demo.model.auth.repo.PermRepo;
-import com.example.demo.model.user.UserRepo;
+import com.example.demo.model.user.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

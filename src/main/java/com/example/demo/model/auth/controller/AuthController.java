@@ -2,8 +2,10 @@ package com.example.demo.model.auth.controller;
 
 import com.example.demo.common.base.BaseController;
 import com.example.demo.common.dto.ResultDto;
-import com.example.demo.common.exception.AuthException;
+import com.example.demo.common.exception.exception.AuthException;
+import com.example.demo.common.exception.exception.BaseException;
 import com.example.demo.common.exception.enums.AuthEnum;
+import com.example.demo.common.exception.enums.BusinessEnum;
 import com.example.demo.model.auth.dto.LoginParam;
 import com.example.demo.model.auth.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +15,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,8 +61,7 @@ public class AuthController extends BaseController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            //throw new Exception("异常");
-            return ResultDto.fail("异常");
+            throw new BaseException(BusinessEnum.SERVICE_ERROR);
         }
 
     }
