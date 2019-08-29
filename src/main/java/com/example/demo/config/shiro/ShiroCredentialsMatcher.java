@@ -6,7 +6,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 
-public class MyCredentialsMatcher extends SimpleCredentialsMatcher {
+public class ShiroCredentialsMatcher extends SimpleCredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
         UsernamePasswordToken token= (UsernamePasswordToken) authenticationToken;

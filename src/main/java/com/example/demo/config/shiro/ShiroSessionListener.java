@@ -5,7 +5,7 @@ import org.apache.shiro.session.SessionListener;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MySessionListener implements SessionListener {
+public class ShiroSessionListener implements SessionListener {
     //在线人数
     private final AtomicInteger sessionCount = new AtomicInteger(0);
     @Override

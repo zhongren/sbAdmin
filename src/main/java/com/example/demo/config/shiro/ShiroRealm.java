@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MyRealm extends AuthorizingRealm {
+public class ShiroRealm extends AuthorizingRealm {
     /**
      * 权限
      *
