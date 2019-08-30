@@ -19,8 +19,8 @@ public class RolePermRelService extends BaseService {
         setBaseRepo(userRepo);
     }
     /*
-    public UserDto findByUserName(String userName) {
-        return find("userName", userName, UserDto.class);
+    public UserLoginDto findByUserName(String userName) {
+        return find("userName", userName, UserLoginDto.class);
     }
 
      */

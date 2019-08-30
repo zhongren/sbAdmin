@@ -7,7 +7,7 @@ import com.example.demo.common.exception.exception.BaseException;
 import com.example.demo.common.exception.enums.AuthEnum;
 import com.example.demo.common.exception.enums.BusinessEnum;
 import com.example.demo.model.auth.dto.LoginParam;
-import com.example.demo.model.auth.dto.UserDto;
+import com.example.demo.model.auth.dto.UserLoginDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -47,7 +47,7 @@ public class AuthController extends BaseController {
         try {
             subject.login(token);
             String host=subject.getSession().getHost();
-            UserDto user = (UserDto) subject.getPrincipal();
+            UserLoginDto user = (UserLoginDto) subject.getPrincipal();
             user.setSid(subject.getSession().getId());
             //remember(true);
             System.out.println(host+"用户权限:"+user.getPerm());

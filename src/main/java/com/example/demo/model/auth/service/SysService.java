@@ -1,7 +1,7 @@
 package com.example.demo.model.auth.service;
 
 
-import com.example.demo.model.auth.dto.UserDto;
+import com.example.demo.model.auth.dto.UserLoginDto;
 import com.example.demo.model.auth.dto.PermPo;
 import com.example.demo.model.auth.repo.PermRepo;
 import com.example.demo.model.user.repo.UserRepo;
@@ -33,9 +33,9 @@ public class SysService {
         List<PermPo> permPoList = permRepo.findUserPerm(userId);
         return permPoList;
     }
-    public UserDto findByUsername(String username) {
-        UserDto userUserDto =userRepo.find("username",username, UserDto.class);
-        return userUserDto;
+    public UserLoginDto findByUsername(String username) {
+        UserLoginDto userUserLoginDto =userRepo.find("username",username, UserLoginDto.class);
+        return userUserLoginDto;
     }
     /**
      * 获取用户菜单集合

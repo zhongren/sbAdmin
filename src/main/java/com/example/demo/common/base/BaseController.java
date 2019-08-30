@@ -2,8 +2,10 @@ package com.example.demo.common.base;
 
 
 import com.example.demo.common.dto.ParamDto;
+import com.example.demo.model.auth.dto.UserLoginDto;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -119,5 +121,9 @@ public class BaseController {
         return paramBean;
     }
 
+    public UserLoginDto getLoginUser() {
+        UserLoginDto user = (UserLoginDto) SecurityUtils.getSubject().getPrincipal();
+        return user;
+    }
 
 }

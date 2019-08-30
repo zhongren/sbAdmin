@@ -1,7 +1,7 @@
 package com.example.demo.config.shiro;
 
 import com.example.demo.common.util.ApplicationContextUtil;
-import com.example.demo.model.auth.dto.UserDto;
+import com.example.demo.model.auth.dto.UserLoginDto;
 import com.example.demo.model.auth.dto.PermPo;
 import com.example.demo.model.auth.dto.UserRoleRelPo;
 import com.example.demo.model.auth.enums.UserStatusEnum;
@@ -26,8 +26,8 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        UserDto userDto = (UserDto) principalCollection.getPrimaryPrincipal();
-        return getAuthrizationInfo(userDto);
+        UserLoginDto userLoginDto = (UserLoginDto) principalCollection.getPrimaryPrincipal();
+        return getAuthrizationInfo(userLoginDto);
     }
 
     /**
@@ -41,36 +41,36 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
-        UserDto userDto = ApplicationContextUtil.getBean(SysService.class).findByUsername(username);
-        if (userDto == null) {
+        UserLoginDto userLoginDto = ApplicationContextUtil.getBean(SysService.class).findByUsername(username);
+        if (userLoginDto == null) {
             //用户不存在
             throw new UnknownAccountException();
         }
-        if (userDto.getStatus().equals(UserStatusEnum.UNACTIVE.getCode())) {
+        if (userLoginDto.getStatus().equals(UserStatusEnum.UNACTIVE.getCode())) {
             //用户被禁用
             throw new DisabledAccountException();
         }
         Set<Integer> roleSet=new HashSet<>();
-        List<UserRoleRelPo> userRoleRelPoList=ApplicationContextUtil.getBean(UserRoleRelService.class).findByUserId(userDto.getId());
+        List<UserRoleRelPo> userRoleRelPoList=ApplicationContextUtil.getBean(UserRoleRelService.class).findByUserId(userLoginDto.getId());
         if(userRoleRelPoList!=null&&userRoleRelPoList.size()>0){
             for(UserRoleRelPo userRoleRelPo:userRoleRelPoList){
                 roleSet.add(userRoleRelPo.getRoleId());
-                userDto.setRole(roleSet);
+                userLoginDto.setRole(roleSet);
             }
         }
 
-        getAuthrizationInfo(userDto);
-        return new SimpleAuthenticationInfo(userDto, userDto.getPasswd(), getName());
+        getAuthrizationInfo(userLoginDto);
+        return new SimpleAuthenticationInfo(userLoginDto, userLoginDto.getPasswd(), getName());
     }
 
-    private AuthorizationInfo getAuthrizationInfo(UserDto userDto) {
+    private AuthorizationInfo getAuthrizationInfo(UserLoginDto userLoginDto) {
         SimpleAuthorizationInfo authorization = new SimpleAuthorizationInfo();
-        if (userDto.getPerm() != null) {
-            authorization.setStringPermissions(userDto.getPerm());
+        if (userLoginDto.getPerm() != null) {
+            authorization.setStringPermissions(userLoginDto.getPerm());
         } else {
-            Set<String> permSet = findUserPerm(userDto.getId());
+            Set<String> permSet = findUserPerm(userLoginDto.getId());
             authorization.setStringPermissions(permSet);
-            userDto.setPerm(authorization.getStringPermissions());
+            userLoginDto.setPerm(authorization.getStringPermissions());
         }
         return authorization;
     }
