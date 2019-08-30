@@ -23,10 +23,13 @@ DROP TABLE IF EXISTS `tb_perm`;
 CREATE TABLE `tb_perm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `perm` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_perm` */
+
+insert  into `tb_perm`(`id`,`perm`,`name`) values (1,'user:page','用户列表');
 
 /*Table structure for table `tb_role` */
 
@@ -36,22 +39,26 @@ CREATE TABLE `tb_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_role` */
 
-/*Table structure for table `tb_role_perm` */
+insert  into `tb_role`(`id`,`name`) values (1,'管理员');
 
-DROP TABLE IF EXISTS `tb_role_perm`;
+/*Table structure for table `tb_role_perm_map` */
 
-CREATE TABLE `tb_role_perm` (
+DROP TABLE IF EXISTS `tb_role_perm_map`;
+
+CREATE TABLE `tb_role_perm_map` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) DEFAULT NULL,
   `perm_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `tb_role_perm` */
+/*Data for the table `tb_role_perm_map` */
+
+insert  into `tb_role_perm_map`(`id`,`role_id`,`perm_id`) values (1,1,1);
 
 /*Table structure for table `tb_user` */
 
@@ -61,13 +68,15 @@ CREATE TABLE `tb_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `real_name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `passwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` varchar(5) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_user` */
 
-insert  into `tb_user`(`id`,`username`,`real_name`,`password`) values (1,'zz','aa','zz'),(2,'zz','zz','zz'),(3,'aa','aa','zz');
+insert  into `tb_user`(`id`,`username`,`real_name`,`passwd`,`status`,`create_time`) values (1,'root','系员管理','root','1',NULL),(2,'test','普通用户1','test','0',NULL);
 
 /*Table structure for table `tb_user_role_map` */
 
@@ -78,9 +87,11 @@ CREATE TABLE `tb_user_role_map` (
   `user_id` int(11) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_user_role_map` */
+
+insert  into `tb_user_role_map`(`id`,`user_id`,`role_id`) values (1,1,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
