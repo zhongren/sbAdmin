@@ -4,7 +4,6 @@ package com.example.demo.model.user.controller;
 import com.example.demo.common.base.BaseController;
 import com.example.demo.common.dto.ParamDto;
 import com.example.demo.common.dto.ResultDto;
-import com.example.demo.common.exception.exception.BaseException;
 import com.example.demo.common.exception.exception.BusinessException;
 import com.example.demo.common.util.BeanUtil;
 import com.example.demo.model.user.dto.UserEditDto;
