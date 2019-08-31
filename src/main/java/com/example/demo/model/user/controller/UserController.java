@@ -52,4 +52,5 @@ public class UserController extends BaseController {
         userService.delete("id", userEditDto.getId());
         return ResultDto.success();
     }
+
 }
