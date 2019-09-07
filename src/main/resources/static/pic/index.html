@@ -36,9 +36,9 @@
             <a href="#" class="navbar-logo">
                 MM </a>
             <div class="navbar-menu">
-                <button @click="send('zf',true)">御姐</button>
-                <button @click="send('xg',true)">少妇</button>
-                <button @click="send('ll',true)">萝莉</button>
+                <button @click="send('zf')">御姐</button>
+                <button @click="send('xg')">少妇</button>
+                <button @click="send('ll')">萝莉</button>
             </div>
 
             <div class="navbar-mobile-menu" onclick="">
@@ -109,13 +109,12 @@
                 return 'background-image:url(' + filePath + ')'
 
             },
-            send: function (type,newpage) {
+            send: function (type) {
+
                 if(type!==data.type){
                     data.pic=[];
                 }
-                if(newpage===true){
-                    data.pic=[];
-                }
+
                 data.type=type;
                 axios({
                     method: 'get',
