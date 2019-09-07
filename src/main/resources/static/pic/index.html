@@ -35,10 +35,15 @@
         <div class="navbar-container">
             <a href="#" class="navbar-logo">
                 MM </a>
+<!--
+            <router-link to="/foo">Go to Foo</router-link>
+            <router-link to="/bar">Go to Bar</router-link>
+            -->
             <div class="navbar-menu">
-                <button @click="send('zf')">御姐</button>
-                <button @click="send('xg')">少妇</button>
-                <button @click="send('ll')">萝莉</button>
+                <button @click="reset('yj')">类型1</button>
+                <button @click="reset('ll')">类型2</button>
+                <button @click="reset('xg')">类型3</button>
+
             </div>
 
             <div class="navbar-mobile-menu" onclick="">
@@ -50,6 +55,9 @@
             </div>
         </div>
     </header>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <!--<router-view></router-view>-->
     <div class="main-content index-page clearfix " id="container">
         <div class="post-lists">
             <div class="post-lists-body" v-for="item in pic">
@@ -83,8 +91,12 @@
 <script src="lib/94imm/js/headroom.min.js"></script>
 <script src="lib/94imm/js/pd.js"></script>
 <script src="lib/vue/vue.js"></script>
+<script src="lib/vue/vue-router.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.19.0/axios.js"></script>
 <script>
+    //var foo = "<div><h1>这里是FOO</h1></div>";
+   // var bar = "<div><h1>这里是BAR</h1></div>";
+
 
     var data = {
         end: false,
@@ -95,6 +107,15 @@
         pic: []
     };
     var app = new Vue({
+        /*
+        router:new VueRouter({
+            routes:[
+                {path:'/',redirect:'/foo'}, // 这个表示会默认渲染foo
+                {path:'/foo',component:{template: foo}},
+                {path:'/bar',component:{template: bar}}
+            ]
+        }),
+        */
         el: '#app',
         data: data,
         beforeMount: function () {
@@ -108,6 +129,10 @@
             loadPic: function (filePath) {
                 return 'background-image:url(' + filePath + ')'
 
+            },
+            reset:function(type){
+                window.scrollTo(0,0)
+                this.send(type)
             },
             send: function (type) {
 
