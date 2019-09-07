@@ -16,7 +16,7 @@
     <meta name="keywords" content="妹子图片,美女图片,性感美女,丝袜美腿,清纯,少女,萝莉"/>
     <meta name="description" content="分享高品质美女图片，快速无弹窗。可以长期收藏的美女图片站">
     <link href="lib/94imm/css/xcode.min.css" rel="stylesheet">
-    <link href="lib/94imm/css/style.min.css" rel="stylesheet">
+    <link href="lib/94imm/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="lib/94imm/js/html5.min.js"></script>
     <script src="lib/94imm/js/respond.min.js"></script>
@@ -34,9 +34,11 @@
     <header id="header" class="header bg-white">
         <div class="navbar-container">
             <a href="#" class="navbar-logo">
-                94iMM </a>
+                MM </a>
             <div class="navbar-menu">
-                <button>类型</button>
+                <button @click="send('zf',true)">御姐</button>
+                <button @click="send('xg',true)">少妇</button>
+                <button @click="send('ll',true)">萝莉</button>
             </div>
 
             <div class="navbar-mobile-menu" onclick="">
@@ -107,7 +109,14 @@
                 return 'background-image:url(' + filePath + ')'
 
             },
-            send: function (type) {
+            send: function (type,newpage) {
+                if(type!==data.type){
+                    data.pic=[];
+                }
+                if(newpage===true){
+                    data.pic=[];
+                }
+                data.type=type;
                 axios({
                     method: 'get',
                     url: this.baseUrl + 'pic/page?type=' + type,

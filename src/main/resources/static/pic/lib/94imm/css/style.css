@@ -520,15 +520,17 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .navbar-menu button {
     background-color: #ffffff;
-    color: rebeccapurple;
+
     font-size: 18px;
-    padding: 0 15px
+    padding: 0 15px;
+    outline: none;
 }
-.navbar-menu button:focus {
+.navbar-menu button:hover {
     background-color: #ffffff;
-    color: eb5055;
+    color: #eb5055;
     font-size: 18px;
-    padding: 0 15px
+    padding: 0 15px;
+    cursor: pointer;
 
 }
 .navbar-menu a {
