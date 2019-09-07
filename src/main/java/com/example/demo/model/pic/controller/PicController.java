@@ -51,7 +51,6 @@ public class PicController extends BaseController {
         try {
             fileManager.saveTo(String.format("%s/%s", savePath, fileName), file.getInputStream());
         } catch (Exception e) {
-            log.error("文件保存失败!", e);
             throw new BusinessException("文件保存失败!");
         }
         Map<String, Object> result = new HashMap<>();

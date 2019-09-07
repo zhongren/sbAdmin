@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <title>94iMM -妹子图片分享</title>
     <meta name="keywords" content="妹子图片,美女图片,性感美女,丝袜美腿,清纯,少女,萝莉"/>
-	<meta name="description" content="94imm分享高品质美女图片，快速无弹窗。可以长期收藏的美女图片站">
+    <meta name="description" content="分享高品质美女图片，快速无弹窗。可以长期收藏的美女图片站">
     <link href="lib/94imm/css/xcode.min.css" rel="stylesheet">
     <link href="lib/94imm/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -31,137 +31,110 @@
 
 
 <div id="app">
-<header id="header" class="header bg-white">
-    <div class="navbar-container">
-        <a href="/" class="navbar-logo">
-            94iMM </a>
-        <div class="navbar-menu">
-			<a href="/">首页</a>
+    <header id="header" class="header bg-white">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                94iMM </a>
+            <div class="navbar-menu">
+                <button>类型</button>
+            </div>
 
-        </div>
-        <div class="navbar-search" onclick="">
-            <span class="icon-search"></span>
-            <form id="search" method="GET" action="/search/" role="search">
-                <span class="search-box">
-                    <input type="text" id="input" class="input" name="s" required="true" placeholder="Search..."
-                           maxlength="30" autocomplete="off">
-                </span>
-            </form>
-        </div>
-        <div class="navbar-mobile-menu" onclick="">
-            <span class="icon-menu cross"><span class="middle"></span></span>
-            <ul>
-		<li><a href="/">首页</a></li>
+            <div class="navbar-mobile-menu" onclick="">
+                <span class="icon-menu cross"><span class="middle"></span></span>
+                <ul>
+                    <li><a href="/">首页</a></li>
 
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-</header>
-<div class="main-content index-page clearfix " id="container">
-    <button @click="send">发送ajax请求</button>
-    <div class="post-lists">
-        <div class="post-lists-body">
-        {% load pagination_tags %}
-            {% autopaginate data 12 %}
-            {% for imglist in data %}
+    </header>
+    <div class="main-content index-page clearfix " id="container">
+        <div class="post-lists">
+            <div class="post-lists-body" v-for="item in pic">
                 <div class="post-list-item">
                     <div class="post-list-item-container">
-                        <div class="item-thumb  bg-deepgrey"
-                             style="background-image:url();"></div>
+
+                        <div class="item-thumb  bg-deepgrey" :style=loadPic(item.filePath)>
+
+                        </div>
                         <a href="{% url 'article' imglist.pid %}">
                             <div class="item-desc">
-                                <p></p>
+                                <p>{{item.fileName}}</p>
                             </div>
                         </a>
-                        <div class="item-slant reverse-slant  bg-deepgrey"></div>
-                        <div class="item-slant"></div>
-                        <div class="item-label">
-                            <div class="item-title"></div>
-                            <div class="item-meta clearfix">
-                                <div class="item-meta-cat"></div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
 
-			</div>
-			    </div>
-		<div class="lists-navigator clearfix">
+            </div>
+        </div>
+        <div class="lists-navigator clearfix">
 
-		</div>
-
+        </div>
 
 
     </div>
 </div>
 
 
-<footer id="footer" class="footer ">
-    <div class="footer-meta">
-        <div class="footer-container">
-            <div class="meta-item meta-copyright">
-                <div class="meta-copyright-info">
-                    <a href="http://www.94imm.com/" class="info-logo">
-                        94iMM </a>
-                    <div class="info-text">
-                        <p>本主题来自 <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu
-                        <p>Powered by <a href="https://www.djangoproject.com/" target="_blank" rel="nofollow">Django</a></p>
-                        <p>&copy; 2018 <a href="/">94iMM</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="meta-item meta-posts">
-                <h3 class="meta-title">FRIENDSHIP LINK</h3>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-            </div>
-            <div class="meta-item meta-comments">
-                <h3 class="meta-title">STATEMENT</h3>
-                <li><a href="/">本站所有资源均来源于网络<br />
-				如侵犯您权利，请来信告知<br />
-				我们将及时撤销相应资源。<br />
-				联系邮箱：<br />
-				copyright@94imm.com</a></li>
-            </div>
-        </div>
-    </div>
-</footer>
 </body>
 <script src="lib/94imm/js/headroom.min.js"></script>
 <script src="lib/94imm/js/pd.js"></script>
 <script src="lib/vue/vue.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.19.0/axios.js"></script>
 <script>
-    var header = new Headroom(document.getElementById("header"), {
-        tolerance: 0,
-        offset: 70,
-        classes: {
-            initial: "animated",
-            pinned: "slideDown",
-            unpinned: "slideUp"
-        }
-    });
-    header.init();
+
+    var data = {
+        end: false,
+        loading: false,
+        tips: '已经被你看光啦...',
+        baseUrl: 'http://127.0.0.1:8089/',
+        type: 'xg',
+        pic: []
+    };
     var app = new Vue({
         el: '#app',
-        data: {
-            message: 'Hello Vue!'
+        data: data,
+        beforeMount: function () {
+            this.send(data.type);
         },
-        methods:{
-            send:function(){
+        mounted: function () {
+            // 添加滚动事件，检测滚动到页面底部
+            this.scroll(data.type)
+        },
+        methods: {
+            loadPic: function (filePath) {
+                return 'background-image:url(' + filePath + ')'
 
+            },
+            send: function (type) {
                 axios({
-                    method:'get',
-                    url:'http://127.0.0.1:8089/user/page?username=r'
-                }).then(function(res){
-                    console.log(res.data);
-                });
+                    method: 'get',
+                    url: this.baseUrl + 'pic/page?type=' + type,
+                    timeout: 30000
+                }).then(function (res) {
+                    console.log(res.data.data.data);
+                    if (res.data.data.data.length > 0) {
+                        this.data.pic = this.data.pic.concat(res.data.data.data);
+                        data.loading = false;
+                    } else {
+                        data.end = true
+                    }
+
+                })
+                ;
+            },
+            scroll: function (type) {
+                var _this = this;
+                window.onscroll = function (ev) {
+                    // 距离底部200px时加载一次
+                    var bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 200;
+                    if (bottomOfWindow && data.loading === false) {
+                        data.loading = true;
+                        console.log("loading...")
+                        _this.send(type);
+                    }
+                }
             }
         }
     })
