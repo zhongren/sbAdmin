@@ -131,15 +131,16 @@
 
             },
             reset:function(type){
-                window.scrollTo(0,0)
+
                 this.send(type)
             },
             send: function (type) {
 
+                data.loading = true;
+
                 if(type!==data.type){
                     data.pic=[];
                 }
-
                 data.type=type;
                 axios({
                     method: 'get',
