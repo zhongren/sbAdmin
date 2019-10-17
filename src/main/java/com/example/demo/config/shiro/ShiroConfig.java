@@ -48,27 +48,18 @@ public class ShiroConfig {
         shiroRealm.setCredentialsMatcher(shiroCredentialsMatcher);
         return shiroRealm;
     }
-    /**
-     * 配置session监听
-     * @return
-     */
+
     @Bean
     public SessionListener sessionListener(){
         return  new ShiroSessionListener();
     }
-    /**
-     * 配置会话ID生成器
-     * @return
-     */
+
     @Bean
     public SessionIdGenerator sessionIdGenerator() {
         return new JavaUuidSessionIdGenerator();
     }
     /**
-     * SessionDAO的作用是为Session提供CRUD并进行持久化的一个shiro组件
-     * MemorySessionDAO 直接在内存中进行会话维护
      * EnterpriseCacheSessionDAO  提供了缓存功能的会话维护，默认情况下使用MapCache实现，内部使用ConcurrentHashMap保存缓存的会话。
-     * @return
      */
     @Bean
     public SessionDAO sessionDAO() {
@@ -76,11 +67,7 @@ public class ShiroConfig {
         enterpriseCacheSessionDAO.setSessionIdGenerator(sessionIdGenerator());
         return enterpriseCacheSessionDAO;
     }
-    /**
-     * 配置保存sessionId的cookie
-     * 注意：这里的cookie 不是上面的记住我 cookie 记住我需要一个cookie session管理 也需要自己的cookie
-     * @return
-     */
+
     @Bean()
     public SimpleCookie sessionIdCookie(){
         //这个参数是cookie的名称
@@ -94,10 +81,7 @@ public class ShiroConfig {
         simpleCookie.setMaxAge(-1);
         return simpleCookie;
     }
-    /**
-     * 配置会话管理器，设定会话超时及保存
-     * @return
-     */
+
     @Bean
     public SessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
@@ -109,7 +93,6 @@ public class ShiroConfig {
         sessionManager.setSessionIdCookie(sessionIdCookie());
         sessionManager.setSessionDAO(sessionDAO());
         //sessionManager.setCacheManager(ehCacheManager());
-
 
         //全局会话超时时间（单位毫秒），默认1小时  暂时设置为10秒钟 用来测试
         sessionManager.setGlobalSessionTimeout(3600000);

@@ -16,13 +16,10 @@ public class ShiroSimpleCookie extends SimpleCookie {
     @Override
     public String readValue(HttpServletRequest request, HttpServletResponse ignored) {
         String tokenName=getName();
-        //System.out.println("tokenName----"+tokenName);
         String tokenValue= WebUtil.getHeader(request,tokenName);
         if (StringUtils.isEmpty(tokenValue )) {
-           // System.out.println("tokenValue不存在");
             return super.readValue(request, ignored);
         }
-        //System.out.println("token----"+tokenValue);
         return tokenValue;
     }
 

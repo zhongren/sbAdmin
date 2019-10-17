@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 public abstract class BaseService {
-    private final String PK = "id";
+
 
     private BaseRepo baseRepo;
 
@@ -67,11 +67,6 @@ public abstract class BaseService {
 
     }
 
-    public <T> T findById(Integer value, Class<T> tClass, String... columns) {
-        return baseRepo.find(PK, value, tClass, columns);
-
-    }
-
     public <T> int create(T bean) {
         return baseRepo.create(bean);
     }
@@ -84,7 +79,7 @@ public abstract class BaseService {
         return baseRepo.delete(field, value);
     }
 
-    public int deleteList(String field, List value) {
+    public int delete(String field, List value) {
         return baseRepo.deleteList(field, value);
     }
 }

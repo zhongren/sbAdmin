@@ -13,7 +13,7 @@ import org.springframework.web.filter.CorsFilter;
  *
  */
 @Configuration
-public class WebCorsConfiguration {
+public class WebCorsConfig {
 
 	private CorsConfiguration getCorsConfiguration(){
 		CorsConfiguration corsConfig = new CorsConfiguration() ;

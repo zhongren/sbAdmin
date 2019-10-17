@@ -60,7 +60,6 @@ public class AuthController extends BaseController {
             throw new AuthException(AuthEnum.WRONG_PASSWORD);
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new BaseException(BusinessEnum.SERVICE_ERROR);
         }
 

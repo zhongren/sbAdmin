@@ -38,7 +38,7 @@ public class UserController extends BaseController {
 
     @PostMapping(value = "update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultDto update(@RequestBody UserEditDto userEditDto) {
-        UserPo userPo = userService.findById(userEditDto.getId(), UserPo.class);
+        UserPo userPo = userService.find("id",userEditDto.getId(), UserPo.class);
         if (null == userPo) {
             throw new BusinessException("用户不存在");
         }
