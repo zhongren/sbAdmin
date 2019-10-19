@@ -15,8 +15,6 @@ public class StartApplication {
     public static void main(String[] args) {
         SpringApplication.run(StartApplication.class, args);
         log.info("------启动完成------");
-        //System.out.println(PropertyConfig.properties);
-        System.out.println(PropertyUtil.getProperty("ab","qqq"));
     }
 
 }
