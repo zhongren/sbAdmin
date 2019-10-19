@@ -8,37 +8,48 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
 
 @Configuration
 public class PropertyConfig extends PropertyPlaceholderConfigurer{
+    public static Properties properties;
 
     @Bean
-    public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer(){
-        PropertyPlaceholderConfigurer propertyPlaceholderConfigurer=new PropertyPlaceholderConfigurer();
-
-        //PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer=null;
+    public PropertyConfig PropertyConfig(){
+        PropertyConfig propertyPlaceholderConfigurer=new PropertyConfig();
+        List<Properties> propertiesList=new ArrayList<>();
         try {
             ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
             Resource[] resources= resolver.getResources(CLASSPATH_URL_PREFIX+"*.properties");
-           // propertySourcesPlaceholderConfigurer=new PropertySourcesPlaceholderConfigurer();
-            propertyPlaceholderConfigurer.setLocations(resources);
+            for (Resource resource:resources){
+                Properties properties=PropertiesLoaderUtils.loadProperties(resource);
+                propertiesList.add(properties);
+            }
+            Properties[] propertiesArray = new Properties[propertiesList.size()];
+            propertyPlaceholderConfigurer.setPropertiesArray(propertiesList.toArray(propertiesArray));
         }catch (Exception e){
             e.printStackTrace();
         }
-        return  propertyPlaceholderConfigurer;
+
+        propertyPlaceholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
+        return propertyPlaceholderConfigurer;
     }
 
     @Override
     protected Properties mergeProperties() throws IOException {
-        Properties properties=super.mergeProperties();
-        PropertyUtil.setProperties(super.mergeProperties());
-        return super.mergeProperties();
+        properties=super.mergeProperties();
+        return properties;
     }
 }
