@@ -1,6 +1,6 @@
 package com.example.demo.config.shiro;
 
-import com.example.demo.common.util.ApplicationContextUtil;
+import com.example.demo.common.util.AppCtx;
 import com.example.demo.model.auth.dto.UserLoginDto;
 import com.example.demo.model.auth.dto.PermPo;
 import com.example.demo.model.auth.dto.UserRoleRelPo;
@@ -41,7 +41,7 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
-        UserLoginDto userLoginDto = ApplicationContextUtil.getBean(SysService.class).findByUsername(username);
+        UserLoginDto userLoginDto = AppCtx.getBean(SysService.class).findByUsername(username);
         if (userLoginDto == null) {
             //用户不存在
             throw new UnknownAccountException();
@@ -51,7 +51,7 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new DisabledAccountException();
         }
         Set<Integer> roleSet=new HashSet<>();
-        List<UserRoleRelPo> userRoleRelPoList=ApplicationContextUtil.getBean(UserRoleRelService.class).findByUserId(userLoginDto.getId());
+        List<UserRoleRelPo> userRoleRelPoList= AppCtx.getBean(UserRoleRelService.class).findByUserId(userLoginDto.getId());
         if(userRoleRelPoList!=null&&userRoleRelPoList.size()>0){
             for(UserRoleRelPo userRoleRelPo:userRoleRelPoList){
                 roleSet.add(userRoleRelPo.getRoleId());
@@ -75,7 +75,7 @@ public class ShiroRealm extends AuthorizingRealm {
         return authorization;
     }
     private Set<String> findUserPerm(Integer  userId) {
-        SysService sysService = ApplicationContextUtil.getBean(SysService.class);
+        SysService sysService = AppCtx.getBean(SysService.class);
         List<PermPo> permPoList = sysService.findPerm(userId);
         Set<String> userPerms = new HashSet<>();
         if (permPoList != null && !permPoList.isEmpty()) {
