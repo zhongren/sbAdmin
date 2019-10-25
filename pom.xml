@@ -138,6 +138,10 @@
                     <version>1.1.0.Final</version>
                 </dependency>
                 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!--  工具集合 -->
         <dependency>
             <groupId>cn.hutool</groupId>

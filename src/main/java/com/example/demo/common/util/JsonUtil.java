@@ -20,13 +20,14 @@ public class JsonUtil {
      * @return
      */
     public static String objectToJson(Object data) {
-    	try {
-			String json = MAPPER.writeValueAsString(data);
-			return json;
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-    	return null;
+        String json = null;
+        try {
+            json = MAPPER.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
+
     }
 
     /**
