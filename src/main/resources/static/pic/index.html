@@ -34,15 +34,16 @@
     <header id="header" class="header bg-white">
         <div class="navbar-container">
             <a href="#" class="navbar-logo">
-                MM </a>
+                MM图片 </a>
 <!--
             <router-link to="/foo">Go to Foo</router-link>
             <router-link to="/bar">Go to Bar</router-link>
-            -->
+-->
             <div class="navbar-menu">
-                <button @click="reset('yj')">类型1</button>
-                <button @click="reset('ll')">类型2</button>
-                <button @click="reset('xg')">类型3</button>
+                <!--<button @click="reset('yj')">类型1</button>-->
+                <button @click="reset('ll')">萝莉</button>
+                <button @click="reset('xg')">少妇</button>
+                <button @click="reset('yj')">御姐</button>
 
             </div>
 
@@ -94,8 +95,8 @@
 <script src="lib/vue/vue-router.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.19.0/axios.js"></script>
 <script>
-    //var foo = "<div><h1>这里是FOO</h1></div>";
-   // var bar = "<div><h1>这里是BAR</h1></div>";
+    var foo = "<div><h1>这里是FOO</h1></div>";
+    var bar = "<div><h1>这里是BAR</h1></div>";
 
 
     var data = {
@@ -107,7 +108,7 @@
         pic: []
     };
     var app = new Vue({
-        /*
+
         router:new VueRouter({
             routes:[
                 {path:'/',redirect:'/foo'}, // 这个表示会默认渲染foo
@@ -115,7 +116,6 @@
                 {path:'/bar',component:{template: bar}}
             ]
         }),
-        */
         el: '#app',
         data: data,
         beforeMount: function () {
@@ -131,23 +131,19 @@
 
             },
             reset:function(type){
-
-                this.send(type)
+                data.pic.length=0;
+                this.send(type);
+                document.documentElement.scrollTop=0;
             },
             send: function (type) {
 
                 data.loading = true;
-
-                if(type!==data.type){
-                    data.pic=[];
-                }
                 data.type=type;
                 axios({
                     method: 'get',
                     url: this.baseUrl + 'pic/page?type=' + type,
                     timeout: 30000
                 }).then(function (res) {
-                    console.log(res.data.data.data);
                     if (res.data.data.data.length > 0) {
                         this.data.pic = this.data.pic.concat(res.data.data.data);
                         data.loading = false;
@@ -165,7 +161,6 @@
                     var bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 200;
                     if (bottomOfWindow && data.loading === false) {
                         data.loading = true;
-                        console.log("loading...")
                         _this.send(type);
                     }
                 }
