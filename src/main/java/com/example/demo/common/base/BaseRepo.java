@@ -66,7 +66,14 @@ public class BaseRepo {
         return searchCriteria;
     }
 
-
+    /**
+     *
+     * field会自动驼峰转下划线
+     * @param field
+     * @param value
+     * @param fields
+     * @return
+     */
     private SearchCriteria createSearchCriteria(String field, Object value, String... fields) {
         Table table = AnnotationUtil.getAnnotation(this.getClass(), Table.class);
         String tableName = table.name();
