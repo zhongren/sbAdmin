@@ -85,11 +85,23 @@ public class RedisCache implements Cache {
 
     @Override
     public <T> T recache(String key, Class<T> clazz, Long expire) {
-        return null;
+
+        T value = null ;
+        if( ( value = get( key , clazz ) ) == null ){
+            return null ;
+        }
+        jedisCluster.expireAt( key , expire ) ;
+        return value;
     }
 
     @Override
     public Set<String> keys(String pattern) {
-        return null;
+        Set<String>  keys = null ;
+        try{
+            keys = jedisCluster.keys(pattern) ;
+        }catch(Exception e){
+            log.error("Redis获取keys异常",e);
+        }
+        return keys;
     }
 }

@@ -32,7 +32,12 @@ public class JedisConfig {
     public JedisCluster jedisCluster(){
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
        //Jedis Cluster will attempt to discover cluster nodes automatically
-        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7379));
+        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7001));
+        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7002));
+        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7003));
+        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7004));
+        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7005));
+        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7006));
         JedisCluster jc = new JedisCluster(jedisClusterNodes,jedisPoolConfig());
         return jc;
     }

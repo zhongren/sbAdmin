@@ -1,6 +1,6 @@
 **docker安装**
 
-1.配置国内数据源
+配置国内数据源
 vim /etc/docker/daemon.json
 
 { 
@@ -9,9 +9,15 @@ vim /etc/docker/daemon.json
  "https://registry.docker-cn.com"] 
  }
  
-2.重启docker
+重启docker
  systemctl restart docker
 
-3.查看镜像源是否生效
+查看镜像源是否生效
 docker info
 
+
+
+
+**redis创建集群**
+
+redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1
