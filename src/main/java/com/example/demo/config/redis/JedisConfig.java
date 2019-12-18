@@ -36,6 +36,9 @@ public class JedisConfig {
     public JedisCluster jedisCluster(){
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
         String[] addressNode=redisProperties.getAddress().split(",");
+        if(addressNode.length==1){
+            return null;
+        }
         for (String node:addressNode){
             String ip=node.split(":")[0];
             String port=node.split(":")[1];
