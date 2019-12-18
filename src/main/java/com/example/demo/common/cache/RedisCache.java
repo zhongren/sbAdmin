@@ -1,12 +1,11 @@
 package com.example.demo.common.cache;
 
-import com.example.demo.common.util.AppCtx;
 import com.example.demo.common.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 
 import java.util.Set;
@@ -15,9 +14,12 @@ import java.util.Set;
 @Slf4j
 public class RedisCache implements Cache {
 
+    /*
     @Autowired
-    private JedisCluster jedisCluster;
-
+    private JedisCluster jedis;
+    */
+    @Autowired
+    private Jedis jedis;
     protected String serialize( Object data ){
         if( data == null ) return null ;
         return JsonUtil.objectToJson( data ) ;
@@ -40,10 +42,10 @@ public class RedisCache implements Cache {
             return null ;
         }
         if( expire == null || expire <= 0 ){
-            jedisCluster.set(key , serialize( value ));
+            jedis.set(key , serialize( value ));
             return value ;
         }
-        jedisCluster.psetex(key,expire,serialize( value ));
+        jedis.psetex(key,expire,serialize( value ));
         return value ;
     }
 
@@ -52,7 +54,7 @@ public class RedisCache implements Cache {
         if( StringUtils.isEmpty( key ) ){
             return false ;
         }
-        boolean exists = jedisCluster.exists( key ) ;
+        boolean exists = jedis.exists( key ) ;
         return exists;
     }
 
@@ -62,7 +64,7 @@ public class RedisCache implements Cache {
             return null ;
         }
 
-        T t = deserialize( jedisCluster.get( key ) , clazz ) ;
+        T t = deserialize( jedis.get( key ) , clazz ) ;
         return t;
     }
 
@@ -71,7 +73,7 @@ public class RedisCache implements Cache {
         if( StringUtils.isEmpty( key ) ) {
             return  ;
         }
-        jedisCluster.del(key);
+        jedis.del(key);
 
     }
 
@@ -80,7 +82,7 @@ public class RedisCache implements Cache {
         if( null==key||key.length<=0 ) {
             return  ;
         }
-        jedisCluster.del(key);
+        jedis.del(key);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class RedisCache implements Cache {
         if( ( value = get( key , clazz ) ) == null ){
             return null ;
         }
-        jedisCluster.expireAt( key , expire ) ;
+        jedis.expireAt( key , expire ) ;
         return value;
     }
 
@@ -98,7 +100,7 @@ public class RedisCache implements Cache {
     public Set<String> keys(String pattern) {
         Set<String>  keys = null ;
         try{
-            keys = jedisCluster.keys(pattern) ;
+            keys = jedis.keys(pattern) ;
         }catch(Exception e){
             log.error("Redis获取keys异常",e);
         }

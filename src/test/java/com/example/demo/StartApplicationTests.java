@@ -14,8 +14,11 @@ public class StartApplicationTests {
     @Autowired
     RedisCache redisCache;
     @Test
-    public void userCreate() {
+    public void redisCluster() {
        redisCache.put("aa",111,1000L);
     }
-
+    @Test
+    public void redis() {
+        redisCache.put("aa",111,-1L);
+    }
 }

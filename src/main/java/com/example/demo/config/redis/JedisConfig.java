@@ -1,19 +1,23 @@
 package com.example.demo.config.redis;
 
 import com.example.demo.common.util.PropertyUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
 public class JedisConfig {
+
+
+    @Autowired
+    private RedisProperties redisProperties;
+
     @Bean
     public JedisPoolConfig jedisPoolConfig(){
         JedisPoolConfig jedisPoolConfig=new JedisPoolConfig();
@@ -31,16 +35,22 @@ public class JedisConfig {
     @Bean
     public JedisCluster jedisCluster(){
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
-       //Jedis Cluster will attempt to discover cluster nodes automatically
-        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7001));
-        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7002));
-        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7003));
-        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7004));
-        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7005));
-        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7006));
+        String[] addressNode=redisProperties.getAddress().split(",");
+        for (String node:addressNode){
+            String ip=node.split(":")[0];
+            String port=node.split(":")[1];
+            jedisClusterNodes.add(new HostAndPort(ip, Integer.valueOf(port)));
+        }
         JedisCluster jc = new JedisCluster(jedisClusterNodes,jedisPoolConfig());
         return jc;
     }
 
-
+    @Bean
+    public Jedis jedis(){
+        String ip=redisProperties.getAddress().split(":")[0];
+        String port=redisProperties.getAddress().split(":")[1];
+        JedisPool pool=new JedisPool(jedisPoolConfig(),ip, Integer.valueOf(port));
+        Jedis jedis = pool.getResource();
+        return jedis;
+    }
 }
