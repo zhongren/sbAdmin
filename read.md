@@ -1,23 +1,26 @@
-**docker安装**
+**docker**
 
-配置国内数据源
-vim /etc/docker/daemon.json
-
-{ 
- "registry-mirrors": 
- ["https://docker.mirrors.ustc.edu.cn",
- "https://registry.docker-cn.com"] 
- }
- 
 重启docker
- systemctl restart docker
+1.systemctl restart docker
 
-查看镜像源是否生效
-docker info
+build image并推送到远程服务器
+1.mvn package
+2.docker:build
 
+3.远程服务器启动项目（docker需开启2375端口）
+docker run --name adminservice -d -p 8089:8089  -v /home/service/admin:/home/service/admin  admin:latest 
 
+-v 宿主机路径:容器内路径
+-d 守护
+-p 宿主机端口:容器端口
+--name 容器名称
 
 
 **redis创建集群**
 
 redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1
+
+
+
+
+

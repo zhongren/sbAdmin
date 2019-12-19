@@ -166,7 +166,7 @@
     </dependencies>
 
     <build>
-        <finalName>sbAdmin</finalName>
+        <finalName>admin</finalName>
 
         <resources>
             <!-- 扫描mapper文件 -->
@@ -189,6 +189,28 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--docker maven 插件-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <imageName>${project.build.finalName}</imageName>
+                    <!--注意 修改成远程服务器地址-->
+                    <dockerHost> http://122.51.82.220:2375</dockerHost>
+                    <dockerDirectory>docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>
