@@ -1,18 +1,16 @@
-package com.example.demo.config.redis;
+package com.example.demo.config.hbase;
 
-import com.example.demo.common.util.PropertyUtil;
+import com.example.demo.config.redis.RedisProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import redis.clients.jedis.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
-public class JedisConfig {
+public class HBaseConfig {
 
 
     @Autowired

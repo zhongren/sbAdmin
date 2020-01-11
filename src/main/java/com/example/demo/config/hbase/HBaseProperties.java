@@ -1,11 +1,11 @@
-package com.example.demo.config.redis;
+package com.example.demo.config.hbase;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties( prefix="redis" , ignoreUnknownFields = true , ignoreInvalidFields = true )
-public class RedisProperties {
+public class HBaseProperties {
 
 
 	private String nodes;

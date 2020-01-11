@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  admin:
+    #build:
+    # context: ./eureka
+    # dockerfile: Dockerfile
+    image: admin
+    networks:
+      - base-network
+    ports:
+      - "8089:8089"
+    volumes:
+      # 卷 (volume)
+      - type: volume
+        source: mydata
+        target: /data
+
+
+volumes:
+  mydata: /data/admin
+networks:
+  base-network:	bridge
+
+
+
+
+
+
+
+
+
+
+
+
