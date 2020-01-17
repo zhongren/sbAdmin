@@ -1,57 +1,37 @@
 package com.example.demo.config.hbase;
 
 import com.example.demo.config.redis.RedisProperties;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import redis.clients.jedis.*;
+import org.springframework.context.annotation.FilterType;
+
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Configuration
+@Slf4j
 public class HBaseConfig {
-
+    private static ExecutorService pool = Executors.newFixedThreadPool(20);
 
     @Autowired
-    private RedisProperties redisProperties;
+    private HBaseProperties hBaseProperties;
 
     @Bean
-    public JedisPoolConfig jedisPoolConfig(){
-        JedisPoolConfig jedisPoolConfig=new JedisPoolConfig();
-        //最大连接数
-        jedisPoolConfig.setMaxTotal(800);
-        //最大空闲连接数
-        jedisPoolConfig.setMaxIdle(100);
-        //最小空闲连接数
-        jedisPoolConfig.setMinIdle(5);
-
-        jedisPoolConfig.setMaxWaitMillis(3000);
-
-        return jedisPoolConfig;
-    }
-    @Bean
-    public JedisCluster jedisCluster(){
-        Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
-        String[] addressNode=redisProperties.getNodes().split(",");
-        if(addressNode.length==1){
-            return null;
-        }
-        for (String node:addressNode){
-            String ip=node.split(":")[0];
-            String port=node.split(":")[1];
-            jedisClusterNodes.add(new HostAndPort(ip, Integer.valueOf(port)));
-        }
-        JedisCluster jc = new JedisCluster(jedisClusterNodes,jedisPoolConfig());
-        return jc;
+    public org.apache.hadoop.conf.Configuration hBaseConfiguration() {
+        System.setProperty("hadoop.home.dir", hBaseProperties.getHadoopHomeDir());
+        org.apache.hadoop.conf.Configuration config = HBaseConfiguration.create();
+        config.set("hbase.zookeeper.quorum", hBaseProperties.getZkQuorum());
+        config.set("hbase.zookeeper.property.clientPort", hBaseProperties.getZkClientPort());
+        return config;
     }
 
-    @Bean
-    public Jedis jedis(){
-        String ip=redisProperties.getNodes().split(":")[0];
-        String port=redisProperties.getNodes().split(":")[1];
-        JedisPool pool=new JedisPool(jedisPoolConfig(),ip, Integer.valueOf(port));
-        Jedis jedis = pool.getResource();
-        return jedis;
-    }
 }
