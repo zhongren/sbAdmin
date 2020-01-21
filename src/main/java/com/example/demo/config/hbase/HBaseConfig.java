@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Configuration
-@Slf4j
 public class HBaseConfig {
     private static ExecutorService pool = Executors.newFixedThreadPool(20);
 
@@ -34,4 +34,14 @@ public class HBaseConfig {
         return config;
     }
 
+    @Bean
+    public Connection connection(){
+        Connection connection=null;
+        try {
+             connection=ConnectionFactory.createConnection(hBaseConfiguration());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
 }

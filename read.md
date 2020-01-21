@@ -27,3 +27,6 @@ redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.
 2. 查看ZK服务状态:    sh bin/zkServer.sh status
 3. 停止ZK服务:       sh bin/zkServer.sh stop
 4. 重启ZK服务:       sh bin/zkServer.sh restart
+
+先启动zk，再启动hbase
+
