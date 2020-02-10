@@ -17,33 +17,20 @@ import java.util.List;
 @Slf4j
 public class HbaseUtils {
 
-
-    /**
-     * @param tableName 表名
-     * @param cols      列
-     */
-    public static void createTable(String tableName, String[] cols) {
+    private static Admin getAdmin(){
         Connection connection = AppCtx.getBean(Connection.class);
         Admin admin = null;
         try {
             admin = connection.getAdmin();
-            TableName tablename = TableName.valueOf(tableName);//定义表名
-            //TableDescriptor对象通过TableDescriptorBuilder构建；
-            TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.newBuilder(tablename);
-            List<ColumnFamilyDescriptor> familyList = new ArrayList<>();
-            for (String col : cols) {
-                ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(col)).build();//构建列族对象
-                familyList.add(family);
-            }
-            tableDescriptor.setColumnFamilies(familyList);//设置列族
-            admin.createTable(tableDescriptor.build());//创建表
         } catch (IOException e) {
-            log.error("hbase创建表报错", e);
+            e.printStackTrace();
         }
-
+        return admin;
     }
 
     /**
+     * 获取表
+     *
      * @param tableName 表名
      * @return
      */
@@ -58,6 +45,50 @@ public class HbaseUtils {
         }
         return table;
     }
+
+    /**
+     * 创建表
+     *
+     * @param tableName 表名
+     * @param cols      列
+     */
+    public static void createTable(String tableName, String[] cols) {
+        try {
+            Admin admin = getAdmin();
+            TableName tablename = getTable(tableName).getName();//定义表名
+            //TableDescriptor对象通过TableDescriptorBuilder构建；
+            TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.newBuilder(tablename);
+            List<ColumnFamilyDescriptor> familyList = new ArrayList<>();
+            for (String col : cols) {
+                ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(col)).build();//构建列族对象
+                familyList.add(family);
+            }
+            tableDescriptor.setColumnFamilies(familyList);//设置列族
+            admin.createTable(tableDescriptor.build());//创建表
+        } catch (IOException e) {
+            log.error("hbase创建表报错", e);
+        }
+
+    }
+    /**
+     * 删除表
+     *
+     * @param tableName
+     * @return
+     */
+    public static boolean deleteTable(String tableName) {
+        try {
+            Admin admin = getAdmin();
+            TableName table = getTable(tableName).getName();
+            admin.disableTable(table);
+            admin.deleteTable(table);
+        } catch (IOException e) {
+            log.error("hbase删除表报错", e);
+        }
+        return true;
+    }
+
+
 
     /**
      * @param tableName 表名
