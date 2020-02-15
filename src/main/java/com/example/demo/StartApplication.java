@@ -3,6 +3,7 @@ package com.example.demo;
 
 import com.example.demo.common.util.PropertyUtil;
 import com.example.demo.config.hbase.HBaseConfig;
+import com.example.demo.config.hbase.HbaseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ public class StartApplication {
         SpringApplication.run(StartApplication.class, args);
         log.info("------启动完成------");
 
+        HbaseUtils.createTable("t1", new String[]{"c1", "c2"});
     }
 
 }

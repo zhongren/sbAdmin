@@ -109,5 +109,22 @@ public class HbaseUtils {
         }
     }
 
+    /**
+     * 获取单条数据
+     *
+     * @param tableName 表名
+     * @param rowKey    唯一标识
+     * @return 查询结果
+     */
+    public static Result getRow(String tableName, String rowKey) {
+        try {
+            Table table = getTable(tableName);
+            Get get = new Get(Bytes.toBytes(rowKey));
+            return table.get(get);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;}
+
 
 }

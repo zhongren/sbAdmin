@@ -16,14 +16,16 @@ docker run --name adminservice -d -p 8089:8089  -v /home/service/admin:/home/ser
 --name 容器名称
 
 
-**redis创建集群**
+##redis
 
+###redis 集群
 redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1
 
-
+###redis 单节点
+src/redis-server redis.conf
 
 **ZooKeeper服务命令**
-1. 启动ZK服务:       sh bin/zkServer.sh start
+1. 启动ZK服务:       bin/zkServer.sh start conf/zoo.cfg
 2. 查看ZK服务状态:    sh bin/zkServer.sh status
 3. 停止ZK服务:       sh bin/zkServer.sh stop
 4. 重启ZK服务:       sh bin/zkServer.sh restart
