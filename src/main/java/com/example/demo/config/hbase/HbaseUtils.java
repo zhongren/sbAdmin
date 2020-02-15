@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class HbaseUtils {
 
-    private static Admin getAdmin(){
+    private static Admin getAdmin() {
         Connection connection = AppCtx.getBean(Connection.class);
         Admin admin = null;
         try {
@@ -49,18 +49,18 @@ public class HbaseUtils {
     /**
      * 创建表
      *
-     * @param tableName 表名
-     * @param cols      列
+     * @param tableName    表名
+     * @param columnFamily 列
      */
-    public static void createTable(String tableName, String[] cols) {
+    public static void createTable(String tableName, String[] columnFamily) {
         try {
             Admin admin = getAdmin();
             TableName tablename = getTable(tableName).getName();//定义表名
             //TableDescriptor对象通过TableDescriptorBuilder构建；
             TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.newBuilder(tablename);
             List<ColumnFamilyDescriptor> familyList = new ArrayList<>();
-            for (String col : cols) {
-                ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(col)).build();//构建列族对象
+            for (String cf : columnFamily) {
+                ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(cf)).build();//构建列族对象
                 familyList.add(family);
             }
             tableDescriptor.setColumnFamilies(familyList);//设置列族
@@ -70,44 +70,46 @@ public class HbaseUtils {
         }
 
     }
+
     /**
      * 删除表
      *
      * @param tableName
      * @return
      */
-    public static boolean deleteTable(String tableName) {
+    public static void deleteTable(String tableName) {
         try {
             Admin admin = getAdmin();
             TableName table = getTable(tableName).getName();
-            admin.disableTable(table);
-            admin.deleteTable(table);
+            if (admin.tableExists(table)) {
+                admin.disableTable(table);
+                admin.deleteTable(table);
+            }
         } catch (IOException e) {
             log.error("hbase删除表报错", e);
         }
-        return true;
     }
 
 
-
     /**
-     * @param tableName 表名
-     * @param rowKey    行键
-     * @param family    列族名
-     * @param qualifier 列名
-     * @param value     值
+     * @param tableName    表名
+     * @param rowKey       行键
+     * @param columnFamily 列族名
+     * @param qualifier    列名
+     * @param value        值
      */
-    public static void putRow(String tableName, String rowKey, String family, String qualifier, String value) {
+    public static void putRow(String tableName, String rowKey, String columnFamily, String qualifier, String value) {
         Table table = getTable(tableName);
         Put put = new Put(rowKey.getBytes());
         //参数：1.列族名  2.列名  3.值
-        put.addColumn(family.getBytes(), qualifier.getBytes(), value.getBytes());
+        put.addColumn(columnFamily.getBytes(), qualifier.getBytes(), value.getBytes());
         try {
             table.put(put);
         } catch (IOException e) {
             log.error("hbase插入记录报错", e);
         }
     }
+
     /**
      * 批量插入数据
      *
@@ -118,8 +120,8 @@ public class HbaseUtils {
     public static void putRows(String tableName, List<PutBean> puts) {
         try {
             Table table = getTable(tableName);
-            List<Put> putList=new ArrayList<>();
-            for (PutBean putBean:puts){
+            List<Put> putList = new ArrayList<>();
+            for (PutBean putBean : puts) {
                 Put put = new Put(putBean.getRowKey().getBytes());
                 //参数：1.列族名  2.列名  3.值
                 put.addColumn(putBean.getFamily().getBytes(), putBean.getQualifier().getBytes(), putBean.getValue().getBytes());
@@ -141,11 +143,23 @@ public class HbaseUtils {
         try {
             Table table = getTable(tableName);
             Get get = new Get(Bytes.toBytes(rowKey));
-            return table.get(get);
+            Result result = table.get(get);
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;}
+        return null;
+    }
+
+    public static String getValue(String tableName, String rowKey, String columnFamily, String qualifier) {
+        Result result = getRow(tableName, rowKey);
+        if (null!=result){
+            byte [] value = result.getValue(Bytes.toBytes(columnFamily),
+                    Bytes.toBytes(qualifier));
+            return Bytes.toString(value);
+        }
+        return null;
+    }
 
     /**
      * 删除一条记录
@@ -163,6 +177,7 @@ public class HbaseUtils {
             e.printStackTrace();
         }
     }
+
     /**
      * 删除列族
      *
