@@ -97,7 +97,7 @@ public class HbaseUtils {
      * @param qualifier 列名
      * @param value     值
      */
-    public static void put(String tableName, String rowKey, String family, String qualifier, String value) {
+    public static void putRow(String tableName, String rowKey, String family, String qualifier, String value) {
         Table table = getTable(tableName);
         Put put = new Put(rowKey.getBytes());
         //参数：1.列族名  2.列名  3.值
@@ -106,6 +106,27 @@ public class HbaseUtils {
             table.put(put);
         } catch (IOException e) {
             log.error("hbase插入记录报错", e);
+        }
+    }
+    /**
+     * 批量插入数据
+     *
+     * @param tableName
+     * @param puts
+     * @return
+     */
+    public static void putRows(String tableName, List<PutBean> puts) {
+        try {
+            Table table = getTable(tableName);
+            List<Put> putList=new ArrayList<>();
+            for (PutBean putBean:puts){
+                Put put = new Put(putBean.getRowKey().getBytes());
+                //参数：1.列族名  2.列名  3.值
+                put.addColumn(putBean.getFamily().getBytes(), putBean.getQualifier().getBytes(), putBean.getValue().getBytes());
+            }
+            table.put(putList);
+        } catch (IOException e) {
+            log.error("hbase批量插入记录报错", e);
         }
     }
 
@@ -126,5 +147,48 @@ public class HbaseUtils {
         }
         return null;}
 
+    /**
+     * 删除一条记录
+     *
+     * @param tableName 表名
+     * @param rowKey    唯一标识行
+     * @return 是否删除成功
+     */
+    public static void deleteRow(String tableName, String rowKey) {
+        try {
+            Table table = getTable(tableName);
+            Delete delete = new Delete(Bytes.toBytes(rowKey));
+            table.delete(delete);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 删除列族
+     *
+     * @param tableName
+     * @param columnFamily
+     * @return
+     */
+    public static void deleteFamily(String tableName, String columnFamily) {
+        try {
+            HBaseAdmin admin = (HBaseAdmin) getAdmin();
+            Table table = getTable(tableName);
+            admin.deleteColumnFamily(table.getName(), columnFamily.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteQualifier(String tableName, String rowKey, String columnFamily, String qualifier) {
+        try {
+            Table table = getTable(tableName);
+            Delete delete = new Delete(Bytes.toBytes(rowKey));
+            delete.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(qualifier));
+            table.delete(delete);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
