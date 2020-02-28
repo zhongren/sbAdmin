@@ -34,10 +34,10 @@
         <a href="/" class="navbar-logo">
             94iMM </a>
         <div class="navbar-menu">
-			<a href="/">首页</a>
-		{% for types in typelist %}
-             <a href="{% url 'type' types.type_id %}">{{ types.type }}</a>
-        {% endfor %}
+            <a href="/">首页</a>
+            {% for types in typelist %}
+            <a href="{% url 'type' types.type_id %}">{{ types.type }}</a>
+            {% endfor %}
         </div>
         <div class="navbar-search" onclick="">
             <span class="icon-search"></span>
@@ -51,10 +51,10 @@
         <div class="navbar-mobile-menu" onclick="">
             <span class="icon-menu cross"><span class="middle"></span></span>
             <ul>
-		<li><a href="/">首页</a></li>
-		{% for types in typelist %}
-             <li><a href="{% url 'type' types.type_id %}">{{ types.type }}</a></li>
-        {% endfor %}
+                <li><a href="/">首页</a></li>
+                {% for types in typelist %}
+                <li><a href="{% url 'type' types.type_id %}">{{ types.type }}</a></li>
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -66,15 +66,16 @@
         <div class="post-data">
             <time>{{ time |date:'Y-m-d' }}</time>
             in <a href="{% url 'type' typeid %}">{{ type }}</a>
-			&nbsp;&nbsp;<a href="{% url 'article' pageid %}">分页浏览</a>
+            &nbsp;&nbsp;<a href="{% url 'article' pageid %}">分页浏览</a>
         </div>
     </div>
     <div id="post-content" class="post-content" itemprop="articleBody">
         <p class="post-tags">
-        {% for t in tag %}<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>{% endfor %}<p>
-        {% for img in data %}
-			<img class="lazy" data-original="{{ img }}" alt="{{ title }}"/>
-		{% endfor %}
+            {% for t in tag %}<a href="{% url 'tag' t.tid %}">{{ t.tname }}</a>{% endfor %}
+        <p>
+            {% for img in data %}
+            <img class="lazy" data-original="{{ img }}" alt="{{ title }}"/>
+            {% endfor %}
     </div>
 </article>
 
@@ -85,27 +86,27 @@
     <div class="post-lists">
         <div class="post-lists-body">
             {% for items in similar %}
-                <div class="post-list-item">
-                    <div class="post-list-item-container">
-                        <div class="item-thumb  bg-deepgrey" style="background-image:url({{ items.firstimg }});"></div>
-                        <a href="{% url 'article' items.pid %}">
-                            <div class="item-desc">
-                                <p></p>
-                            </div>
-                        </a>
-                        <div class="item-slant reverse-slant  bg-deepgrey"></div>
-                        <div class="item-slant"></div>
-                        <div class="item-label">
-                            <div class="item-title"><a href="{% url 'article' items.pid %}">{{ items.stitle }}</a></div>
-                            <div class="item-meta clearfix">
-                                <div class="item-meta-cat">{{ items.sendtime|date:'Y-m-d' }}</div>
-                            </div>
-
-
+            <div class="post-list-item">
+                <div class="post-list-item-container">
+                    <div class="item-thumb  bg-deepgrey" style="background-image:url({{ items.firstimg }});"></div>
+                    <a href="{% url 'article' items.pid %}">
+                        <div class="item-desc">
+                            <p></p>
+                        </div>
+                    </a>
+                    <div class="item-slant reverse-slant  bg-deepgrey"></div>
+                    <div class="item-slant"></div>
+                    <div class="item-label">
+                        <div class="item-title"><a href="{% url 'article' items.pid %}">{{ items.stitle }}</a></div>
+                        <div class="item-meta clearfix">
+                            <div class="item-meta-cat">{{ items.sendtime|date:'Y-m-d' }}</div>
                         </div>
 
+
                     </div>
+
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>

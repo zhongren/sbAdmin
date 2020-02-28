@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "pic")
@@ -26,6 +27,7 @@ public class PicController extends BaseController {
     private PicService picService;
     @Autowired
     private FileManager fileManager;
+
     @GetMapping(value = "page", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultDto page() {
         ParamDto paramDto = getParam();
@@ -57,7 +59,7 @@ public class PicController extends BaseController {
         result.put("fileName", fileName);
         result.put("filePath", fileManager.getUploadURL(moduleDir, fileName));
 
-        PicPo picPo=new PicPo();
+        PicPo picPo = new PicPo();
         picPo.setType(module);
         picPo.setFileName(fileName);
         picPo.setFilePath(fileManager.getUploadURL(moduleDir, fileName));

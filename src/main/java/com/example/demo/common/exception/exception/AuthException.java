@@ -9,6 +9,6 @@ import com.example.demo.common.exception.enums.AuthEnum;
 public class AuthException extends BaseException {
 
     public AuthException(AuthEnum authEnum) {
-        super(authEnum.getMsg(),authEnum.getCode());
+        super(authEnum.getMsg(), authEnum.getCode());
     }
 }

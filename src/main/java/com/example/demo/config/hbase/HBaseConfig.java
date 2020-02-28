@@ -35,10 +35,10 @@ public class HBaseConfig {
     }
 
     @Bean
-    public Connection connection(){
-        Connection connection=null;
+    public Connection connection() {
+        Connection connection = null;
         try {
-             connection=ConnectionFactory.createConnection(hBaseConfiguration());
+            connection = ConnectionFactory.createConnection(hBaseConfiguration());
         } catch (IOException e) {
             e.printStackTrace();
         }

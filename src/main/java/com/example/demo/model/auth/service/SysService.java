@@ -20,8 +20,8 @@ public class SysService {
     private PermRepo permRepo;
     @Autowired
     private UserRepo userRepo;
-   // @Autowired
-  //  private MenuRepo menuRepo;
+    // @Autowired
+    //  private MenuRepo menuRepo;
 
     /**
      * 获取用户权限集合
@@ -33,42 +33,41 @@ public class SysService {
         List<PermPo> permPoList = permRepo.findUserPerm(userId);
         return permPoList;
     }
+
     public UserLoginDto findByUsername(String username) {
-        UserLoginDto userUserLoginDto =userRepo.find("username",username, UserLoginDto.class);
+        UserLoginDto userUserLoginDto = userRepo.find("username", username, UserLoginDto.class);
         return userUserLoginDto;
     }
     /**
      * 获取用户菜单集合
      *
      * @param userId
-     * @return
+     * @return public List<MenuPo> findUserMenu(long userId) {
+    List<MenuPo> menuList = new ArrayList<>();
+    Map<Long,MenuPo> menuPoMap=new HashMap<>();
+    List<MenuPo> subMenuPoList = menuRepo.findUserMenu(userId);
+    List<MenuPo> menuPoList = menuRepo.findListBy("parent_id", 0, MenuPo.class);
+    if (CollectionUtil.isNotEmpty(subMenuPoList)) {
+    for(MenuPo subMenu:subMenuPoList){
+    menuPoMap.put(subMenu.getId(),subMenu);
+    if (CollectionUtil.isNotEmpty(menuPoList)) {
+    for(MenuPo menu:menuPoList){
+    if(subMenu.getParentId().equals(menu.getId())){
+    if(!menuPoMap.containsKey(menu.getId())){
+    menuPoMap.put(menu.getId(),menu);
+    }
+    }
 
-    public List<MenuPo> findUserMenu(long userId) {
-        List<MenuPo> menuList = new ArrayList<>();
-        Map<Long,MenuPo> menuPoMap=new HashMap<>();
-        List<MenuPo> subMenuPoList = menuRepo.findUserMenu(userId);
-        List<MenuPo> menuPoList = menuRepo.findListBy("parent_id", 0, MenuPo.class);
-        if (CollectionUtil.isNotEmpty(subMenuPoList)) {
-            for(MenuPo subMenu:subMenuPoList){
-                menuPoMap.put(subMenu.getId(),subMenu);
-                if (CollectionUtil.isNotEmpty(menuPoList)) {
-                    for(MenuPo menu:menuPoList){
-                        if(subMenu.getParentId().equals(menu.getId())){
-                            if(!menuPoMap.containsKey(menu.getId())){
-                                menuPoMap.put(menu.getId(),menu);
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-        if(menuPoMap.size()>0){
-            for (Map.Entry<Long, MenuPo> entry : menuPoMap.entrySet()) {
-                menuList.add(entry.getValue());
-            }
-        }
-        return menuList;
+    }
+    }
+    }
+    }
+    if(menuPoMap.size()>0){
+    for (Map.Entry<Long, MenuPo> entry : menuPoMap.entrySet()) {
+    menuList.add(entry.getValue());
+    }
+    }
+    return menuList;
     }
      */
 }

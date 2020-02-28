@@ -153,8 +153,8 @@ public class HbaseUtils {
 
     public static String getValue(String tableName, String rowKey, String columnFamily, String qualifier) {
         Result result = getRow(tableName, rowKey);
-        if (null!=result){
-            byte [] value = result.getValue(Bytes.toBytes(columnFamily),
+        if (null != result) {
+            byte[] value = result.getValue(Bytes.toBytes(columnFamily),
                     Bytes.toBytes(qualifier));
             return Bytes.toString(value);
         }

@@ -13,9 +13,9 @@ import javax.persistence.Table;
 public class PicRepo extends BaseRepo {
     @Override
     public void init() {
-        ConditionMap conditionMap =new ConditionMap();
-        conditionMap.put("fileName",new Condition("file_name", Op.LIKE));
-        conditionMap.put("type",new Condition("type", Op.EQ));
+        ConditionMap conditionMap = new ConditionMap();
+        conditionMap.put("fileName", new Condition("file_name", Op.LIKE));
+        conditionMap.put("type", new Condition("type", Op.EQ));
         setConditionMap(conditionMap);
     }
 }

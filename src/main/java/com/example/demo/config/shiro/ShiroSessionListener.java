@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ShiroSessionListener implements SessionListener {
     //在线人数
     private final AtomicInteger sessionCount = new AtomicInteger(0);
+
     @Override
     public void onStart(Session session) {
         sessionCount.incrementAndGet();
@@ -22,8 +23,10 @@ public class ShiroSessionListener implements SessionListener {
     public void onExpiration(Session session) {
         sessionCount.decrementAndGet();
     }
+
     /**
      * 获取在线人数
+     *
      * @return
      */
     public int getSessionCount() {

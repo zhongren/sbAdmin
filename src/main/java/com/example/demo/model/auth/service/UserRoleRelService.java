@@ -22,7 +22,7 @@ public class UserRoleRelService extends BaseService {
         setBaseRepo(userRoleRelRepo);
     }
 
-    public List<UserRoleRelPo> findByUserId(Integer userId){
-       return findList("userId",userId.toString(), UserRoleRelPo.class);
+    public List<UserRoleRelPo> findByUserId(Integer userId) {
+        return findList("userId", userId.toString(), UserRoleRelPo.class);
     }
 }

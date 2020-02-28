@@ -1,7 +1,6 @@
 package com.example.demo.model.auth.service;
 
 
-
 import com.example.demo.common.base.BaseService;
 import com.example.demo.model.auth.dto.RolePo;
 import com.example.demo.model.auth.repo.RoleRepo;
@@ -21,7 +20,7 @@ public class RoleService extends BaseService {
         setBaseRepo(roleRepo);
     }
 
-    public RolePo findByName(String name){
-       return find("name",name, RolePo.class);
+    public RolePo findByName(String name) {
+        return find("name", name, RolePo.class);
     }
 }

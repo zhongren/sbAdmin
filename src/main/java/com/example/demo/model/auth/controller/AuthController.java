@@ -33,8 +33,6 @@ public class AuthController extends BaseController {
     private final long DEFAULT_SESSION_TIMEOUT = 3600 * 1000;
 
 
-
-
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultDto login(@RequestBody LoginParam loginParam) {
         String account = loginParam.getUsername();
@@ -46,12 +44,12 @@ public class AuthController extends BaseController {
         UsernamePasswordToken token = new UsernamePasswordToken(account, password);
         try {
             subject.login(token);
-            String host=subject.getSession().getHost();
+            String host = subject.getSession().getHost();
             UserLoginDto user = (UserLoginDto) subject.getPrincipal();
             user.setSid(subject.getSession().getId());
             //remember(true);
-            System.out.println(host+"用户权限:"+user.getPerm());
-            return ResultDto.success( "登陆成功",user);
+            System.out.println(host + "用户权限:" + user.getPerm());
+            return ResultDto.success("登陆成功", user);
         } catch (UnknownAccountException e) {
             throw new AuthException(AuthEnum.UNKNOWN_ACCOUNT);
         } catch (DisabledAccountException e) {

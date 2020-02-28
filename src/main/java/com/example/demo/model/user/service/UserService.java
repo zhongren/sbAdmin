@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService extends BaseService {
     @Autowired
     private UserRepo userRepo;
+
     @Override
     public void init() {
         setBaseRepo(userRepo);

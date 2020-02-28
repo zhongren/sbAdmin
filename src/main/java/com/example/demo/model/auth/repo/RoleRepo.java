@@ -18,9 +18,9 @@ public class RoleRepo extends BaseRepo {
 
     @Override
     public void init() {
-        ConditionMap conditionMap=new ConditionMap();
-        conditionMap.put("id",new Condition("id", Op.EQ));
-        conditionMap.put("name",new Condition("name", Op.LIKE));
+        ConditionMap conditionMap = new ConditionMap();
+        conditionMap.put("id", new Condition("id", Op.EQ));
+        conditionMap.put("name", new Condition("name", Op.LIKE));
         setConditionMap(conditionMap);
     }
 }

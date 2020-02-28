@@ -24,23 +24,23 @@ import java.util.Properties;
 import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
 
 @Configuration
-public class PropertyConfig extends PropertyPlaceholderConfigurer{
+public class PropertyConfig extends PropertyPlaceholderConfigurer {
     public static Properties properties;
 
     @Bean
-    public PropertyConfig PropertyConfig(){
-        PropertyConfig propertyPlaceholderConfigurer=new PropertyConfig();
-        List<Properties> propertiesList=new ArrayList<>();
+    public PropertyConfig PropertyConfig() {
+        PropertyConfig propertyPlaceholderConfigurer = new PropertyConfig();
+        List<Properties> propertiesList = new ArrayList<>();
         try {
             ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-            Resource[] resources= resolver.getResources(CLASSPATH_URL_PREFIX+"*.properties");
-            for (Resource resource:resources){
-                Properties properties=PropertiesLoaderUtils.loadProperties(resource);
+            Resource[] resources = resolver.getResources(CLASSPATH_URL_PREFIX + "*.properties");
+            for (Resource resource : resources) {
+                Properties properties = PropertiesLoaderUtils.loadProperties(resource);
                 propertiesList.add(properties);
             }
             Properties[] propertiesArray = new Properties[propertiesList.size()];
             propertyPlaceholderConfigurer.setPropertiesArray(propertiesList.toArray(propertiesArray));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -50,7 +50,7 @@ public class PropertyConfig extends PropertyPlaceholderConfigurer{
 
     @Override
     protected Properties mergeProperties() throws IOException {
-        properties=super.mergeProperties();
+        properties = super.mergeProperties();
         return properties;
     }
 }

@@ -3,6 +3,7 @@ package com.example.demo.common.orm;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
 public class SearchCriteria {
     private String tableName;

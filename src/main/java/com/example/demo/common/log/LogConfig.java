@@ -10,7 +10,7 @@ public class LogConfig {
         System.out.println("logConfig");
     }
 */
-    public void autoLog(){
+    public void autoLog() {
         System.out.println("autoLog");
     }
 }

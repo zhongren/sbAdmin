@@ -35,10 +35,10 @@
         <div class="navbar-container">
             <a href="#" class="navbar-logo">
                 MM图片 </a>
-<!--
-            <router-link to="/foo">Go to Foo</router-link>
-            <router-link to="/bar">Go to Bar</router-link>
--->
+            <!--
+                        <router-link to="/foo">Go to Foo</router-link>
+                        <router-link to="/bar">Go to Bar</router-link>
+            -->
             <div class="navbar-menu">
                 <!--<button @click="reset('yj')">类型1</button>-->
                 <button @click="reset('ll')">萝莉</button>
@@ -109,11 +109,11 @@
     };
     var app = new Vue({
 
-        router:new VueRouter({
-            routes:[
-                {path:'/',redirect:'/foo'}, // 这个表示会默认渲染foo
-                {path:'/foo',component:{template: foo}},
-                {path:'/bar',component:{template: bar}}
+        router: new VueRouter({
+            routes: [
+                {path: '/', redirect: '/foo'}, // 这个表示会默认渲染foo
+                {path: '/foo', component: {template: foo}},
+                {path: '/bar', component: {template: bar}}
             ]
         }),
         el: '#app',
@@ -130,15 +130,15 @@
                 return 'background-image:url(' + filePath + ')'
 
             },
-            reset:function(type){
-                data.pic.length=0;
+            reset: function (type) {
+                data.pic.length = 0;
                 this.send(type);
-                document.documentElement.scrollTop=0;
+                document.documentElement.scrollTop = 0;
             },
             send: function (type) {
 
                 data.loading = true;
-                data.type=type;
+                data.type = type;
                 axios({
                     method: 'get',
                     url: this.baseUrl + 'pic/page?type=' + type,

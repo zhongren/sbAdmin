@@ -7,7 +7,7 @@ import com.example.demo.common.dto.ResultDto;
  * Created by zhongr on 2017/8/25.
  */
 public enum ParamEnum {
-    PARAM_LACK(ResultDto.FAIL, "参数错误"),PK_LACK(ResultDto.FAIL, "主键ID缺失");
+    PARAM_LACK(ResultDto.FAIL, "参数错误"), PK_LACK(ResultDto.FAIL, "主键ID缺失");
     private String code;
     private String msg;
 

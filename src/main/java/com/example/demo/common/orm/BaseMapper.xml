@@ -53,7 +53,8 @@
         <include refid="conditions"/>
     </select>
 
-    <insert id="create" parameterType="com.example.demo.common.orm.CreateCriteria" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    <insert id="create" parameterType="com.example.demo.common.orm.CreateCriteria" keyColumn="id" keyProperty="id"
+            useGeneratedKeys="true">
         INSERT INTO ${tableName}
         <foreach collection="conditionList" item="item" separator="," open="(" close=")">
             <if test="item.value != null">

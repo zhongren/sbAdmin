@@ -7,5 +7,5 @@ public class UserEditDto {
     private Integer id;
     private String username;
     private String passwd;
-    private String status ;
+    private String status;
 }

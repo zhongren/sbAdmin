@@ -19,8 +19,8 @@ public class JedisConfig {
     private RedisProperties redisProperties;
 
     @Bean
-    public JedisPoolConfig jedisPoolConfig(){
-        JedisPoolConfig jedisPoolConfig=new JedisPoolConfig();
+    public JedisPoolConfig jedisPoolConfig() {
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         //最大连接数
         jedisPoolConfig.setMaxTotal(800);
         //最大空闲连接数
@@ -32,27 +32,28 @@ public class JedisConfig {
 
         return jedisPoolConfig;
     }
+
     @Bean
-    public JedisCluster jedisCluster(){
+    public JedisCluster jedisCluster() {
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
-        String[] addressNode=redisProperties.getNodes().split(",");
-        if(addressNode.length==1){
+        String[] addressNode = redisProperties.getNodes().split(",");
+        if (addressNode.length == 1) {
             return null;
         }
-        for (String node:addressNode){
-            String ip=node.split(":")[0];
-            String port=node.split(":")[1];
+        for (String node : addressNode) {
+            String ip = node.split(":")[0];
+            String port = node.split(":")[1];
             jedisClusterNodes.add(new HostAndPort(ip, Integer.valueOf(port)));
         }
-        JedisCluster jc = new JedisCluster(jedisClusterNodes,jedisPoolConfig());
+        JedisCluster jc = new JedisCluster(jedisClusterNodes, jedisPoolConfig());
         return jc;
     }
 
     @Bean
-    public Jedis jedis(){
-        String ip=redisProperties.getNodes().split(":")[0];
-        String port=redisProperties.getNodes().split(":")[1];
-        JedisPool pool=new JedisPool(jedisPoolConfig(),ip, Integer.valueOf(port));
+    public Jedis jedis() {
+        String ip = redisProperties.getNodes().split(":")[0];
+        String port = redisProperties.getNodes().split(":")[1];
+        JedisPool pool = new JedisPool(jedisPoolConfig(), ip, Integer.valueOf(port));
         Jedis jedis = pool.getResource();
         return jedis;
     }

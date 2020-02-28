@@ -18,10 +18,10 @@ public class UserRoleRelRepo extends BaseRepo {
 
     @Override
     public void init() {
-        ConditionMap criterionMap=new ConditionMap();
-        criterionMap.put("id",new Condition("id", Op.EQ));
-        criterionMap.put("userId",new Condition("user_id", Op.EQ));
-        criterionMap.put("roleId",new Condition("role_id", Op.EQ));
+        ConditionMap criterionMap = new ConditionMap();
+        criterionMap.put("id", new Condition("id", Op.EQ));
+        criterionMap.put("userId", new Condition("user_id", Op.EQ));
+        criterionMap.put("roleId", new Condition("role_id", Op.EQ));
         setConditionMap(criterionMap);
     }
 }

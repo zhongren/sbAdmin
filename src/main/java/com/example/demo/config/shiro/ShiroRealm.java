@@ -50,10 +50,10 @@ public class ShiroRealm extends AuthorizingRealm {
             //用户被禁用
             throw new DisabledAccountException();
         }
-        Set<Integer> roleSet=new HashSet<>();
-        List<UserRoleRelPo> userRoleRelPoList= AppCtx.getBean(UserRoleRelService.class).findByUserId(userLoginDto.getId());
-        if(userRoleRelPoList!=null&&userRoleRelPoList.size()>0){
-            for(UserRoleRelPo userRoleRelPo:userRoleRelPoList){
+        Set<Integer> roleSet = new HashSet<>();
+        List<UserRoleRelPo> userRoleRelPoList = AppCtx.getBean(UserRoleRelService.class).findByUserId(userLoginDto.getId());
+        if (userRoleRelPoList != null && userRoleRelPoList.size() > 0) {
+            for (UserRoleRelPo userRoleRelPo : userRoleRelPoList) {
                 roleSet.add(userRoleRelPo.getRoleId());
                 userLoginDto.setRole(roleSet);
             }
@@ -74,7 +74,8 @@ public class ShiroRealm extends AuthorizingRealm {
         }
         return authorization;
     }
-    private Set<String> findUserPerm(Integer  userId) {
+
+    private Set<String> findUserPerm(Integer userId) {
         SysService sysService = AppCtx.getBean(SysService.class);
         List<PermPo> permPoList = sysService.findPerm(userId);
         Set<String> userPerms = new HashSet<>();

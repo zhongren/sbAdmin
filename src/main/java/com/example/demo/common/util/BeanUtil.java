@@ -1,8 +1,6 @@
 package com.example.demo.common.util;
 
 
-
-
 import cn.hutool.core.util.StrUtil;
 
 import java.lang.reflect.Field;
@@ -14,15 +12,14 @@ import java.util.*;
 public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
 
 
-
     public static <T> List<T> convertMap2List(List<Map<String, Object>> list, Class<T> tClass) {
         if (list == null || list.isEmpty() || tClass == null) {
             return null;
         }
         List<T> data = new ArrayList<>();
         for (Map<String, Object> map : list) {
-           // T t = mapToBean(map,tClass,true);
-            T t = convertMap2Bean(map,tClass);
+            // T t = mapToBean(map,tClass,true);
+            T t = convertMap2Bean(map, tClass);
             data.add(t);
         }
         return data;
@@ -32,15 +29,16 @@ public class BeanUtil extends cn.hutool.core.bean.BeanUtil {
         if (map == null || map.isEmpty() || tClass == null) {
             return null;
         }
-        T t = mapToBean(map,tClass,true);
+        T t = mapToBean(map, tClass, true);
         return t;
     }
 
-    public static  Map<String, Object> convertBean2Map(Object o) {
-        return beanToMap(o,true,true);
+    public static Map<String, Object> convertBean2Map(Object o) {
+        return beanToMap(o, true, true);
     }
 
     public static void main(String[] args) {
-        System.out.println(StrUtil.toUnderlineCase("UserName"));;
+        System.out.println(StrUtil.toUnderlineCase("UserName"));
+        ;
     }
 }

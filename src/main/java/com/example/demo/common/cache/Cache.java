@@ -5,17 +5,18 @@ import java.util.Set;
 
 public interface Cache {
 
-	<T>  T put(String key, T value, Long expire) ;
+    <T> T put(String key, T value, Long expire);
 
-	boolean exists(String key) ;
+    boolean exists(String key);
 
-	<T> T get(String key, Class<T> clazz) ;
+    <T> T get(String key, Class<T> clazz);
 
-	void del(String key) ;
-	void del(String[] key) ;
+    void del(String key);
 
-	<T> T recache(String key, Class<T> clazz, Long expire) ;
+    void del(String[] key);
 
-	Set<String> keys(String pattern) ;
-	
+    <T> T recache(String key, Class<T> clazz, Long expire);
+
+    Set<String> keys(String pattern);
+
 }

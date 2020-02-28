@@ -1,7 +1,6 @@
 package com.example.demo.model.auth.repo;
 
 
-
 import com.example.demo.common.base.BaseRepo;
 import com.example.demo.common.orm.ConditionMap;
 import com.example.demo.common.util.BeanUtil;
@@ -22,12 +21,12 @@ public class PermRepo extends BaseRepo {
 
     @Override
     public void init() {
-        ConditionMap conditionMap=new ConditionMap();
+        ConditionMap conditionMap = new ConditionMap();
         setConditionMap(conditionMap);
     }
 
-    public  List<PermPo> findUserPerm(long userId  ){
-        List<Map<String,Object>> dataList = sqlSessionTemplate.selectList(MapperConstant.findUserPerm, userId ) ;
-        return BeanUtil.convertMap2List( dataList , PermPo.class  ) ;
+    public List<PermPo> findUserPerm(long userId) {
+        List<Map<String, Object>> dataList = sqlSessionTemplate.selectList(MapperConstant.findUserPerm, userId);
+        return BeanUtil.convertMap2List(dataList, PermPo.class);
     }
 }

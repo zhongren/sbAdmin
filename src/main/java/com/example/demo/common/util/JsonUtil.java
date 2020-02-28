@@ -16,6 +16,7 @@ public class JsonUtil {
      * 将对象转换成json字符串。
      * <p>Title: pojoToJson</p>
      * <p>Description: </p>
+     *
      * @param data
      * @return
      */
@@ -42,7 +43,7 @@ public class JsonUtil {
             T t = MAPPER.readValue(jsonData, beanType);
             return t;
         } catch (Exception e) {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -51,20 +52,21 @@ public class JsonUtil {
      * 将json数据转换成pojo对象list
      * <p>Title: jsonToList</p>
      * <p>Description: </p>
+     *
      * @param jsonData
      * @param tClass
      * @return
      */
-    public static <T>List<T> jsonToList(String jsonData, Class<T> tClass) {
-    	JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, tClass);
-    	try {
-    		List<T> list = MAPPER.readValue(jsonData, javaType);
-    		return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    public static <T> List<T> jsonToList(String jsonData, Class<T> tClass) {
+        JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, tClass);
+        try {
+            List<T> list = MAPPER.readValue(jsonData, javaType);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    	return null;
+        return null;
     }
 
 }

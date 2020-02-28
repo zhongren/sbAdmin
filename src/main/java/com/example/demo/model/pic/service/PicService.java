@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class PicService extends BaseService {
     @Autowired
     private PicRepo picRepo;
+
     @Override
     public void init() {
         setBaseRepo(picRepo);

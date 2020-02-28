@@ -28,10 +28,10 @@ public class ShiroConfig {
         chainDefinition.addPathDefinition("/auth/login", "anon");
 
         // logged in users with the 'admin' role
-       // chainDefinition.addPathDefinition("/admin/**", "authc, roles[admin]");
+        // chainDefinition.addPathDefinition("/admin/**", "authc, roles[admin]");
 
         // logged in users with the 'document:read' permission
-       // chainDefinition.addPathDefinition("/docs/**", "authc, perms[document:read]");
+        // chainDefinition.addPathDefinition("/docs/**", "authc, perms[document:read]");
 
         // all other paths require a logged in user
         chainDefinition.addPathDefinition("/user/page", "authc, perms[user:page]");
@@ -43,21 +43,22 @@ public class ShiroConfig {
 
     @Bean
     public Realm realm() {
-        ShiroCredentialsMatcher shiroCredentialsMatcher =new ShiroCredentialsMatcher();
-        ShiroRealm shiroRealm =new ShiroRealm();
+        ShiroCredentialsMatcher shiroCredentialsMatcher = new ShiroCredentialsMatcher();
+        ShiroRealm shiroRealm = new ShiroRealm();
         shiroRealm.setCredentialsMatcher(shiroCredentialsMatcher);
         return shiroRealm;
     }
 
     @Bean
-    public SessionListener sessionListener(){
-        return  new ShiroSessionListener();
+    public SessionListener sessionListener() {
+        return new ShiroSessionListener();
     }
 
     @Bean
     public SessionIdGenerator sessionIdGenerator() {
         return new JavaUuidSessionIdGenerator();
     }
+
     /**
      * EnterpriseCacheSessionDAO  提供了缓存功能的会话维护，默认情况下使用MapCache实现，内部使用ConcurrentHashMap保存缓存的会话。
      */
@@ -69,7 +70,7 @@ public class ShiroConfig {
     }
 
     @Bean()
-    public SimpleCookie sessionIdCookie(){
+    public SimpleCookie sessionIdCookie() {
         //这个参数是cookie的名称
         ShiroSimpleCookie simpleCookie = new ShiroSimpleCookie("sid");
         //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：

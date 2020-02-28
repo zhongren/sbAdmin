@@ -13,9 +13,9 @@ import javax.persistence.Table;
 public class UserRepo extends BaseRepo {
     @Override
     public void init() {
-        ConditionMap conditionMap =new ConditionMap();
-        conditionMap.put("username",new Condition("username", Op.LIKE));
-        conditionMap.put("realName",new Condition("real_name", Op.LIKE));
+        ConditionMap conditionMap = new ConditionMap();
+        conditionMap.put("username", new Condition("username", Op.LIKE));
+        conditionMap.put("realName", new Condition("real_name", Op.LIKE));
         setConditionMap(conditionMap);
     }
 }

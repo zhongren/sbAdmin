@@ -43,6 +43,7 @@ public class ResultDto implements Serializable {
     public static ResultDto fail(String msg, Object data) {
         return build(FAIL, msg, data);
     }
+
     public static ResultDto fail(String msg) {
         return build(FAIL, msg, null);
     }

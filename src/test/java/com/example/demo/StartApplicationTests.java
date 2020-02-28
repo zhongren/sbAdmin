@@ -14,32 +14,34 @@ public class StartApplicationTests {
 
     @Autowired
     RedisCache redisCache;
+
     @Test
     public void redisCluster() {
-       redisCache.put("aa",111,1000L);
+        redisCache.put("aa", 111, 1000L);
     }
+
     @Test
     public void redis() {
-        redisCache.put("aa",111,-1L);
+        redisCache.put("aa", 111, -1L);
     }
 
 
     @Test
-    public void hbase(){
+    public void hbase() {
         HbaseUtils.deleteTable("t1");
         HbaseUtils.createTable("t1", new String[]{"cf1"});
 
-        for(int i=1;i<=10;i++){
-            String rowKey="A_";
-            rowKey=rowKey+i;
+        for (int i = 1; i <= 10; i++) {
+            String rowKey = "A_";
+            rowKey = rowKey + i;
             System.out.println(rowKey);
-            HbaseUtils.putRow("t1",rowKey,"cf1","address",i+"");
+            HbaseUtils.putRow("t1", rowKey, "cf1", "address", i + "");
         }
 
-        for(int i=1;i<=10;i++){
-            String str=HbaseUtils.getValue("t1","A_"+i,"cf1","address");
+        for (int i = 1; i <= 10; i++) {
+            String str = HbaseUtils.getValue("t1", "A_" + i, "cf1", "address");
 
-            System.out.println("结果"+str);
+            System.out.println("结果" + str);
         }
     }
 }

@@ -525,6 +525,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     padding: 0 15px;
     outline: none;
 }
+
 .navbar-menu button:hover {
     background-color: #ffffff;
     color: #eb5055;
@@ -533,6 +534,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     cursor: pointer;
 
 }
+
 .navbar-menu a {
     font-size: 18px;
     padding: 0 15px

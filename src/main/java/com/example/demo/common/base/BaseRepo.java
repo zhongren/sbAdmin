@@ -67,8 +67,8 @@ public class BaseRepo {
     }
 
     /**
-     *
      * field会自动驼峰转下划线
+     *
      * @param field
      * @param value
      * @param fields
@@ -85,7 +85,7 @@ public class BaseRepo {
         }
         //添加查询条件
         if (!StringUtils.isEmpty(value)) {
-            field= StrUtil.toUnderlineCase(field);
+            field = StrUtil.toUnderlineCase(field);
             List<Condition> conditionList = new ArrayList<>();
             Condition condition = new Condition(field, value, Op.EQ);
             conditionList.add(condition);
@@ -196,6 +196,7 @@ public class BaseRepo {
         List<Map<String, Object>> list = findMapList(param, columns);
         return BeanUtil.convertMap2List(list, tClass);
     }
+
     private int createMap(Map<String, Object> param) {
         CreateCriteria createCriteria = createCreateCriteria(param);
         return sqlSessionTemplate.insert(CREATE, createCriteria);
@@ -219,22 +220,23 @@ public class BaseRepo {
     }
 
     public int deleteList(String field, Object value) {
-        Condition condition=new Condition(field,value,Op.IN);
+        Condition condition = new Condition(field, value, Op.IN);
         DeleteCriteria deleteCriteria = createDeleteCriteria(condition);
         return sqlSessionTemplate.delete(DELETE, deleteCriteria);
     }
 
-    public  int delete(String field, Object value) {
+    public int delete(String field, Object value) {
         Condition condition = new Condition(field, value, Op.EQ);
         DeleteCriteria deleteCriteria = createDeleteCriteria(condition);
         return sqlSessionTemplate.delete(DELETE, deleteCriteria);
     }
+
     private List<Map<String, Object>> toCamelCase(List<Map<String, Object>> data) {
         for (Map<String, Object> map : data) {
             Map<String, Object> tmpMap = new HashMap<>();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
-                tmpMap.put(StrUtil.toCamelCase(entry.getKey()),entry.getValue());
-               // tmpMap.put(CommonUtil.Underscore2Camel(entry.getKey()), entry.getValue());
+                tmpMap.put(StrUtil.toCamelCase(entry.getKey()), entry.getValue());
+                // tmpMap.put(CommonUtil.Underscore2Camel(entry.getKey()), entry.getValue());
             }
             map.clear();
             map.putAll(tmpMap);

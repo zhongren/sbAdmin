@@ -19,12 +19,11 @@ import java.util.Properties;
  * Created by zhongr on 2017/7/31.
  */
 
-public class PropertyUtil  {
-
+public class PropertyUtil {
 
 
     public static String getProperty(String key, String def) {
-        Properties properties=PropertyConfig.properties;
+        Properties properties = PropertyConfig.properties;
         if (properties == null || properties.get(key) == null) {
             return def;
         }
@@ -32,9 +31,8 @@ public class PropertyUtil  {
     }
 
 
-
     public static boolean getProperty(String key, boolean def) {
-        Properties properties=PropertyConfig.properties;
+        Properties properties = PropertyConfig.properties;
         if (properties == null || properties.get(key) == null) {
             return def;
         }
@@ -42,7 +40,7 @@ public class PropertyUtil  {
     }
 
     public static int getProperty(String key, int def) {
-        Properties properties=PropertyConfig.properties;
+        Properties properties = PropertyConfig.properties;
         if (properties == null || properties.get(key) == null) {
             return def;
         }

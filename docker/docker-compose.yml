@@ -19,7 +19,7 @@ services:
 volumes:
   mydata: /data/admin
 networks:
-  base-network:	bridge
+  base-network:    bridge
 
 
 

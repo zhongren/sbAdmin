@@ -56,7 +56,7 @@ public class BaseController {
                     continue;
                 }
             }
-            result.put(entry.getKey(), String.join(",",entry.getValue()));
+            result.put(entry.getKey(), String.join(",", entry.getValue()));
         }
         return result;
     }
@@ -102,20 +102,20 @@ public class BaseController {
      */
     protected ParamDto getParam() {
         ParamDto paramBean = new ParamDto();
-        Integer pageNum = Integer.valueOf(getParam(ParamDto.PAGE_NUM)!=null?getParam(ParamDto.PAGE_NUM).toString():"1");
-        Integer pageSize =  Integer.valueOf(getParam(ParamDto.PAGE_SIZE)!=null?getParam(ParamDto.PAGE_SIZE).toString():"20");
-        paramBean.setPageNum( pageNum);
+        Integer pageNum = Integer.valueOf(getParam(ParamDto.PAGE_NUM) != null ? getParam(ParamDto.PAGE_NUM).toString() : "1");
+        Integer pageSize = Integer.valueOf(getParam(ParamDto.PAGE_SIZE) != null ? getParam(ParamDto.PAGE_SIZE).toString() : "20");
+        paramBean.setPageNum(pageNum);
         paramBean.setPageSize(pageSize);
-        if(null==getParam(ParamDto.ORDER_TYPE)||null==getParam(ParamDto.ORDER_FIELD)){
+        if (null == getParam(ParamDto.ORDER_TYPE) || null == getParam(ParamDto.ORDER_FIELD)) {
             paramBean.setOrderType(ParamDto.DESC);
             paramBean.setOrderField("id");
-        }else {
+        } else {
             paramBean.setOrderType(getParam(ParamDto.ORDER_TYPE).toString());
             paramBean.setOrderField(getParam(ParamDto.ORDER_FIELD).toString());
         }
 
-        Map<String,String> orderMap=paramBean.getOrderMap();
-        orderMap.put(paramBean.getOrderField(),paramBean.getOrderType());
+        Map<String, String> orderMap = paramBean.getOrderMap();
+        orderMap.put(paramBean.getOrderField(), paramBean.getOrderType());
         paramBean.putAll(getParamMap(ParamDto.PAGE_NUM, ParamDto.PAGE_SIZE, ParamDto.ORDER_TYPE, ParamDto.ORDER_FIELD));
         filterParam(paramBean);
         return paramBean;

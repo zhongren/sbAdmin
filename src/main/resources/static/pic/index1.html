@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <title>94iMM -妹子图片分享</title>
     <meta name="keywords" content="妹子图片,美女图片,性感美女,丝袜美腿,清纯,少女,萝莉"/>
-	<meta name="description" content="94imm分享高品质美女图片，快速无弹窗。可以长期收藏的美女图片站">
+    <meta name="description" content="94imm分享高品质美女图片，快速无弹窗。可以长期收藏的美女图片站">
     <link href="lib/94imm/css/xcode.min.css" rel="stylesheet">
     <link href="lib/94imm/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -23,134 +23,135 @@
     <![endif]-->
 </head>
 <div class="bg-grey" gtools_scp_screen_capture_injected="true">
-<!--[if lt IE 8]>
-<div class="browsehappy" role="dialog">
-    当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/" target="_blank">升级你的浏览器</a>。
-</div>
-<![endif]-->
+    <!--[if lt IE 8]>
+    <div class="browsehappy" role="dialog">
+        当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/" target="_blank">升级你的浏览器</a>。
+    </div>
+    <![endif]-->
 
 
-<div id="app">
-<header id="header" class="header bg-white">
-    <div class="navbar-container">
-        <a href="/" class="navbar-logo">
-            94iMM </a>
-        <div class="navbar-menu">
-			<a href="/">首页</a>
-		{% for types in typelist %}
-             <a href="{% url 'type' types.type_id %}">{{ types.type }}</a>
-        {% endfor %}
-        </div>
-        <div class="navbar-search" onclick="">
-            <span class="icon-search"></span>
-            <form id="search" method="GET" action="/search/" role="search">
+    <div id="app">
+        <header id="header" class="header bg-white">
+            <div class="navbar-container">
+                <a href="/" class="navbar-logo">
+                    94iMM </a>
+                <div class="navbar-menu">
+                    <a href="/">首页</a>
+                    {% for types in typelist %}
+                    <a href="{% url 'type' types.type_id %}">{{ types.type }}</a>
+                    {% endfor %}
+                </div>
+                <div class="navbar-search" onclick="">
+                    <span class="icon-search"></span>
+                    <form id="search" method="GET" action="/search/" role="search">
                 <span class="search-box">
                     <input type="text" id="input" class="input" name="s" required="true" placeholder="Search..."
                            maxlength="30" autocomplete="off">
                 </span>
-            </form>
-        </div>
-        <div class="navbar-mobile-menu" onclick="">
-            <span class="icon-menu cross"><span class="middle"></span></span>
-            <ul>
-		<li><a href="/">首页</a></li>
-		{% for types in typelist %}
-             <li><a href="{% url 'type' types.type_id %}">{{ types.type }}</a></li>
-        {% endfor %}
-            </ul>
-        </div>
-    </div>
-</header>
-<div class="main-content index-page clearfix " id="container">
-    <div class="post-lists">
-        <div class="post-lists-body">
-        {% load pagination_tags %}
-            {% autopaginate data 12 %}
-            {% for imglist in data %}
-                <div class="post-list-item">
-                    <div class="post-list-item-container">
-                        <div class="item-thumb  bg-deepgrey"
-                             style="background-image:url({{ imglist.firstimg }});"></div>
-                        <a href="{% url 'article' imglist.pid %}">
-                            <div class="item-desc">
-                                <p></p>
-                            </div>
-                        </a>
-                        <div class="item-slant reverse-slant  bg-deepgrey"></div>
-                        <div class="item-slant"></div>
-                        <div class="item-label">
-                            <div class="item-title"><a href="{% url 'article' imglist.pid %}">{{ imglist.title }}</a></div>
-                            <div class="item-meta clearfix">
-                                <div class="item-meta-cat">{{ imglist.sendtime |date:'Y-m-d' }}</div>
+                    </form>
+                </div>
+                <div class="navbar-mobile-menu" onclick="">
+                    <span class="icon-menu cross"><span class="middle"></span></span>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        {% for types in typelist %}
+                        <li><a href="{% url 'type' types.type_id %}">{{ types.type }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="main-content index-page clearfix " id="container">
+            <div class="post-lists">
+                <div class="post-lists-body">
+                    {% load pagination_tags %}
+                    {% autopaginate data 12 %}
+                    {% for imglist in data %}
+                    <div class="post-list-item">
+                        <div class="post-list-item-container">
+                            <div class="item-thumb  bg-deepgrey"
+                                 style="background-image:url({{ imglist.firstimg }});"></div>
+                            <a href="{% url 'article' imglist.pid %}">
+                                <div class="item-desc">
+                                    <p></p>
+                                </div>
+                            </a>
+                            <div class="item-slant reverse-slant  bg-deepgrey"></div>
+                            <div class="item-slant"></div>
+                            <div class="item-label">
+                                <div class="item-title"><a href="{% url 'article' imglist.pid %}">{{ imglist.title
+                                    }}</a></div>
+                                <div class="item-meta clearfix">
+                                    <div class="item-meta-cat">{{ imglist.sendtime |date:'Y-m-d' }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-			</div>
-			    </div>
-		<div class="lists-navigator clearfix">
-        {% paginate %}
-		</div>
-
-
-
-    </div>
-</div>
-
-
-<footer id="footer" class="footer ">
-    <div class="footer-meta">
-        <div class="footer-container">
-            <div class="meta-item meta-copyright">
-                <div class="meta-copyright-info">
-                    <a href="http://www.94imm.com/" class="info-logo">
-                        94iMM </a>
-                    <div class="info-text">
-                        <p>本主题来自 <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu
-                        <p>Powered by <a href="https://www.djangoproject.com/" target="_blank" rel="nofollow">Django</a></p>
-                        <p>&copy; 2018 <a href="/">94iMM</a></p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="meta-item meta-posts">
-                <h3 class="meta-title">FRIENDSHIP LINK</h3>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                <li><a href=""></a></li>
+            <div class="lists-navigator clearfix">
+                {% paginate %}
             </div>
-            <div class="meta-item meta-comments">
-                <h3 class="meta-title">STATEMENT</h3>
-                <li><a href="/">本站所有资源均来源于网络<br />
-				如侵犯您权利，请来信告知<br />
-				我们将及时撤销相应资源。<br />
-				联系邮箱：<br />
-				copyright@94imm.com</a></li>
-            </div>
+
+
         </div>
     </div>
-</footer>
 
-<script src="lib/94imm/js/headroom.min.js"></script>
-<script src="lib/94imm/js/pd.js"></script>
-<script src="lib/vue/vue.js"></script>
-<script>
-    var header = new Headroom(document.getElementById("header"), {
-        tolerance: 0,
-        offset: 70,
-        classes: {
-            initial: "animated",
-            pinned: "slideDown",
-            unpinned: "slideUp"
-        }
-    });
-    header.init();
-</script>
 
-</body>
+    <footer id="footer" class="footer ">
+        <div class="footer-meta">
+            <div class="footer-container">
+                <div class="meta-item meta-copyright">
+                    <div class="meta-copyright-info">
+                        <a href="http://www.94imm.com/" class="info-logo">
+                            94iMM </a>
+                        <div class="info-text">
+                            <p>本主题来自 <a href="https://github.com/chakhsu/pinghsu" target="_blank">Pinghsu
+                            <p>Powered by <a href="https://www.djangoproject.com/" target="_blank"
+                                             rel="nofollow">Django</a></p>
+                            <p>&copy; 2018 <a href="/">94iMM</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="meta-item meta-posts">
+                    <h3 class="meta-title">FRIENDSHIP LINK</h3>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                </div>
+                <div class="meta-item meta-comments">
+                    <h3 class="meta-title">STATEMENT</h3>
+                    <li><a href="/">本站所有资源均来源于网络<br/>
+                        如侵犯您权利，请来信告知<br/>
+                        我们将及时撤销相应资源。<br/>
+                        联系邮箱：<br/>
+                        copyright@94imm.com</a></li>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="lib/94imm/js/headroom.min.js"></script>
+    <script src="lib/94imm/js/pd.js"></script>
+    <script src="lib/vue/vue.js"></script>
+    <script>
+        var header = new Headroom(document.getElementById("header"), {
+            tolerance: 0,
+            offset: 70,
+            classes: {
+                initial: "animated",
+                pinned: "slideDown",
+                unpinned: "slideUp"
+            }
+        });
+        header.init();
+    </script>
+
+    </body>
 </html>

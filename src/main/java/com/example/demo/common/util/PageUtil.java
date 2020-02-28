@@ -12,15 +12,15 @@ import org.springframework.util.StringUtils;
  * @date 2017/11/8
  */
 public class PageUtil {
-    public static Page startPage(ParamDto pageParam){
-        if (pageParam==null){
+    public static Page startPage(ParamDto pageParam) {
+        if (pageParam == null) {
             return null;
         }
-        Page page=null;
-        if (pageParam.getPageNum()>0){
-            page = PageHelper.startPage(pageParam.getPageNum(),pageParam.getPageSize());
+        Page page = null;
+        if (pageParam.getPageNum() > 0) {
+            page = PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
         }
-        if (!StringUtils.isEmpty(pageParam.orderBy())){
+        if (!StringUtils.isEmpty(pageParam.orderBy())) {
             PageHelper.orderBy(pageParam.orderBy());
         }
 

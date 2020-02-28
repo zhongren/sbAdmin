@@ -10,8 +10,9 @@ public class BaseException extends RuntimeException {
 
 
     public BaseException(BusinessEnum businessEnum) {
-        this(businessEnum.getMsg(),businessEnum.getCode());
+        this(businessEnum.getMsg(), businessEnum.getCode());
     }
+
     public String getCode() {
         return code;
     }

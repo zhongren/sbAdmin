@@ -1,7 +1,6 @@
 package com.example.demo.common.dto;
 
 
-
 import cn.hutool.core.util.StrUtil;
 import org.springframework.util.StringUtils;
 
@@ -58,7 +57,7 @@ public class ParamDto extends HashMap<String, Object> {
         this.orderField = orderField;
     }
 
-    private Map<String,String> orderMap = new LinkedHashMap<String, String>() ;
+    private Map<String, String> orderMap = new LinkedHashMap<String, String>();
 
     public Map<String, String> getOrderMap() {
         return orderMap;
@@ -69,26 +68,25 @@ public class ParamDto extends HashMap<String, Object> {
     }
 
 
-
-    public String orderBy(){
-        if( orderMap.isEmpty() ){
-            return null ;
+    public String orderBy() {
+        if (orderMap.isEmpty()) {
+            return null;
         }
-        StringBuilder stringOrderType = new StringBuilder() ;
-        for( Entry<String,String> item : orderMap.entrySet() ){
-            if( StringUtils.isEmpty( item.getKey() ) || item.getValue() == null ){
-                continue ;
+        StringBuilder stringOrderType = new StringBuilder();
+        for (Entry<String, String> item : orderMap.entrySet()) {
+            if (StringUtils.isEmpty(item.getKey()) || item.getValue() == null) {
+                continue;
             }
-            String key= StrUtil.toUnderlineCase(item.getKey());
-            stringOrderType.append( String.format(
-                    " %s %s ,", key , item.getValue()) ) ;
+            String key = StrUtil.toUnderlineCase(item.getKey());
+            stringOrderType.append(String.format(
+                    " %s %s ,", key, item.getValue()));
         }
 
-        String tempstr = stringOrderType.toString().trim() ;
-        if( tempstr.endsWith( "," ) ){
-            tempstr = tempstr.substring( 0 , tempstr.length() - 1 ) ;
+        String tempstr = stringOrderType.toString().trim();
+        if (tempstr.endsWith(",")) {
+            tempstr = tempstr.substring(0, tempstr.length() - 1);
         }
-        return tempstr ;
+        return tempstr;
     }
 
 }

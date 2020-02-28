@@ -212,7 +212,7 @@
                 <configuration>
                     <imageName>${project.build.finalName}</imageName>
                     <!--注意 修改成远程服务器地址-->
-                    <dockerHost> http://122.51.82.220:2375</dockerHost>
+                    <dockerHost>http://122.51.82.220:2375</dockerHost>
                     <dockerDirectory>docker</dockerDirectory>
                     <resources>
                         <resource>
